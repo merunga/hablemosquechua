@@ -1,5 +1,5 @@
 Package.describe({
-  summary: 'Tweets dictionary'
+  summary: 'diccionario para @hablemosquechua'
 });
 
 Package.on_use(function (api) {
