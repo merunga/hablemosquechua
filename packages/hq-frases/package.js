@@ -13,7 +13,8 @@ Package.on_use(function (api) {
 
   api.add_files([
     'server/models.coffee',
-    'server/publish.coffee'
+    'server/publish.coffee',
+    'server/aggregation.coffee'
   ], 'server')
 
   api.add_files([
