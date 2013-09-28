@@ -3,8 +3,8 @@ currDiccionario = -> Diccionarios.findOne Session.get( 'diccionarioId' )
 Template.diccionarioEdit.rendered = ->
   Tokenfield.init()
   if dicc = currDiccionario()
-    cols =  _.union ['_id'], dicc.variables, ['tags']
-    
+    # Deps.autorun ->
+    cols =  _.union ['_id'], dicc.variables
     palabras = []
     PalabrasDiccionario.find(
       { diccionarioId: Session.get 'diccionarioId' },
@@ -20,7 +20,6 @@ Template.diccionarioEdit.rendered = ->
       palabras = [obj]
 
     colWidths = [100].concat _(dicc.variables).collect (v) -> 180
-    colWidths.push 300
 
     $("#palabras-table").handsontable
       data: palabras
