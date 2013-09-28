@@ -8,7 +8,7 @@ updateAggregationDiccionario = (userId, diccionarioId) ->
     aggrDiccId = aggrDicc._id
     delete aggrDicc._id
     unless _(aggrDicc).isEqual aggr
-      delete aggr.ventaId # XXX: cannot update a unique field
+      delete aggr.diccionarioId # XXX: cannot update a unique field
       try
         AggregationDiccionario.update aggrDiccId, $set: aggr, (err) ->
           console.log( err ) if err
@@ -40,6 +40,6 @@ Meteor.publish 'diccionario', (id) ->
 
 Meteor.publish 'diccionarios', ->
   [
-    Diccionarios.find( userId: @userId ),
+    Diccionarios.find( { userId: @userId }, { sort: { createdAt: -1 } } ),
     AggregationDiccionario.find userId: @userId
   ]

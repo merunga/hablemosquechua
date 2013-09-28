@@ -5,7 +5,8 @@
       "iron-router": {},
       "collection2": {},
       "roles": {},
-      "collection-hooks": {}
+      "collection-hooks": {},
+      "bootboxjs": {}
     },
     "packages": {
       "iron-router": {
@@ -27,6 +28,11 @@
         "git": "https://github.com/matb33/meteor-collection-hooks.git",
         "tag": "v0.5.3",
         "commit": "cbcaf9755ea9821482d7794690ee72b2bcb09269"
+      },
+      "bootboxjs": {
+        "git": "https://github.com/TimHeckel/meteor-bootboxjs.git",
+        "tag": "v3.2.2",
+        "commit": "580adfebfa12b4d2186a80cec1109dab74ad6228"
       },
       "simple-schema": {
         "git": "https://github.com/aldeed/meteor-simple-schema.git",

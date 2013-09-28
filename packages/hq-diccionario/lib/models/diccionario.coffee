@@ -8,7 +8,7 @@ Diccionarios = new Meteor.Collection2 'diccionarios',
     variables:
       type: Array
     tags:
-      type: String
+      type: Array
       optional: true
     palabras:
       type: Array

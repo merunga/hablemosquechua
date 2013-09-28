@@ -3,6 +3,7 @@
     "iron-router": {},
     "collection2": {},
     "roles": {},
-    "collection-hooks": {}
+    "collection-hooks": {},
+    "bootboxjs": {}
   }
 }
