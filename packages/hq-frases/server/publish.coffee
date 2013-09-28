@@ -2,7 +2,7 @@ updateAggregationConjunto = (userId, conjuntoId) ->
   aggr =
     conjuntoId: conjuntoId
     userId: userId
-    countFrases: ConjuntosFrases.find( conjuntoId: conjuntoId ).count() or 0
+    countFrases: Frases.find( conjuntoId: conjuntoId ).count() or 0
 
   if aggrDicc = AggregationConjuntoFrases.findOne( conjuntoId: conjuntoId )
     aggrDiccId = aggrDicc._id
