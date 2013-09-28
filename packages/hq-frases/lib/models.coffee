@@ -5,6 +5,8 @@ ConjuntosFrases = new Meteor.Collection2 'conjuntosFrases',
       optional: true # Nos es opcional, pero coll2 no funciona con hooks
     nombre:
       type: String
+    diccionarioIds:
+      type: [String]
     tags:
       type: [String]
       optional: true
@@ -31,3 +33,5 @@ AggregationConjuntoFrases = new Meteor.Collection2 'aggregationConjutoFrases',
       type: String
     countFrases:
       type: Number
+    diccionarios:
+      type: [String]

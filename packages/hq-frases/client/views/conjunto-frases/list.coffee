@@ -3,6 +3,8 @@ Template.conjuntoFrasesList.helpers
     if ConjuntosFrases.find().count()
       ConjuntosFrases.find()
     else false
+  diccionarios: ->
+    AggregationConjuntoFrases.findOne( conjuntoId: @_id )?.diccionarios
   countFrases: ->
     AggregationConjuntoFrases.findOne( conjuntoId: @_id )?.countFrases
   countFrasesTotal: ->

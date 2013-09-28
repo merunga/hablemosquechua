@@ -5,6 +5,7 @@
       <thead>
         <tr>
           <td class="span2">Nombre</td>
+          <td class="span2">Diccionarios</td>
           <td class="span2">Tags</td>
           <td class="span2">Fecha Creación</td>
           <td class="span1"># frases</td>
@@ -18,6 +19,7 @@
             <a href="{{pathFor 'conjuntoFrasesEdit' id=_id}}"
               >{{nombre}}</a>
           </td>
+          <td class="span2">{{diccionarios}}</td>
           <td class="span2">{{tags}}</td>
           <td class="span2">{{moment createdAt 'DD/MM/YYYY hh:mm a'}}</td>
           <td class="span1">{{countFrases}}</td>

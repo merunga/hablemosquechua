@@ -2,6 +2,11 @@ currConjuntoFrases = -> ConjuntosFrases.findOne Session.get( 'conjuntoFrasesId' 
 
 Template.conjuntoFrasesEdit.rendered = ->
   Tokenfield.init()
+  $( @findAll 'select[required].chosen:not([data-combobox])[multiple]' )
+    .each (i,s) ->
+      $(s).chosen
+        search_contains: true
+        width: $(s).data('width')
   if dicc = currConjuntoFrases()
     cols =  ['_id']
     extraColsLength = 2
@@ -36,6 +41,7 @@ Template.conjuntoFrasesEdit.rendered = ->
 
 Template.conjuntoFrasesEdit.helpers
   currConjuntoFrases: -> currConjuntoFrases()
+  diccionarios: -> Diccionarios.find()
 
 Template.conjuntoFrasesEdit.events
   'submit #editConjuntoFrasesForm': (e) ->

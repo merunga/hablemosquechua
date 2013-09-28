@@ -3,7 +3,8 @@ Package.describe({
 });
 
 Package.on_use(function (api) {
-  api.use(['standard-app-packages','coffeescript','iron-router','collection-hooks']);
+  api.use(['standard-app-packages','coffeescript','iron-router',
+    'collection-hooks','hq-diccionarios']);
   api.use(['bootstrap','stylus','utils','tokenfield'],'client');
 
   api.add_files([
