@@ -1,0 +1,5 @@
+_( /([taeiou])$/ ).plural '$1s'
+_( /([rlnd])$/ ).plural '$1es'
+_( /([taeiou])s$/ ).singular '$1'
+_( /([rlnd])es$/ ).singular '$1'
+_( /(ble)s$/ ).singular '$1'

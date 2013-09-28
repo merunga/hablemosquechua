@@ -1,0 +1,18 @@
+<head>
+  <title>@hablemosquechua</title>
+</head>
+
+<body>
+</body>
+
+<template name="layout">
+  {{>navbar}}
+  <div class="main container">
+  {{#isolate}}
+    {{yield}}
+  {{/isolate}}
+  </div>
+</template>
+
+<template name="home">
+</template>

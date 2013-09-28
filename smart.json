@@ -1,0 +1,8 @@
+{
+  "packages": {
+    "iron-router": {},
+    "collection2": {},
+    "roles": {},
+    "collection-hooks": {}
+  }
+}

@@ -1,0 +1,46 @@
+<template name="diccionarioEdit">
+  <form id="editDiccionarioForm">
+    <div class="row-fluid">
+      <div class="span6 offset1 last"><h2>Nuevo diccionario</h2></div>
+    </div>
+    <div class="row-fluid">
+      <div class="span1 offset1">
+        <label class="control-label"
+          for="nombre">Nombre</label>
+      </div>
+      <div class="span3 last">
+        <input type="text" name="nombre" id="nombre"
+          class="large" required></input>
+      </div>
+    </div>
+    <div class="row-fluid">
+      <div class="span1 offset1">
+        <label class="control-label"
+          for="variables">Variables</label>
+      </div>
+      <div class="span3 last">
+        <input type="text" class="large"
+          data-widgettype="tokenfield" required
+          id="variables" name="variables" data-asarray />
+      </div>
+    </div>
+
+    <div class="row-fluid">
+      <div class="span4 offset1">
+        <button class="pull-right" type="submit">Guardar</button>
+      </div>
+    </div>
+
+    <div class="row-fluid">
+      <div class="span10 offset1 last">
+        <div id="words-table"></div>
+      </div>
+    </div>
+
+    <div class="row-fluid">
+      <div class="span4 offset1">
+        <button class="pull-right" type="submit">Guardar</button>
+      </div>
+    </div>
+  </form>
+</template>

@@ -1,0 +1,40 @@
+<template name="_autocomplete">
+  <select class="chosen"
+    name="{{name}}" id="{{random}}-{{name}}"
+    {{#if required}} required="required" {{/if}}
+    {{#if multiple}} multiple="multiple" {{/if}}
+    {{#if combobox}} data-combobox {{/if}}
+    {{#if style}} style="{{style}}" {{/if}}
+    {{#if width}} data-width="{{width}}" {{else}} data-width="100%" {{/if}}
+    >
+    {{#each options}}
+      {{#if $not ../value}}
+        {{#if ../../defaultValue}}
+          {{#if $eq ../../this ../../../defaultValue}}
+            <option value="{{value ../../../this}}" selected="selected">
+              {{label ../../../this}}
+            </option>
+          {{else}}
+            <option value="{{value ../../../this}}">
+              {{label ../../../this}}
+            </option>
+          {{/if}}
+        {{else}}
+          <option value="{{value ../../this}}">
+            {{label ../../this}}
+          </option>
+        {{/if}}
+      {{else}}
+        {{#if $eqOrIn ../this ../../value}}
+          <option value="{{value ../../this}}" selected="selected">
+            {{label ../../this}}
+          </option>
+        {{else}}
+          <option value="{{value ../../this}}">
+            {{label ../../this}}
+          </option>
+        {{/if}}
+      {{/if}}
+    {{/each}}
+  </select>
+</template>
