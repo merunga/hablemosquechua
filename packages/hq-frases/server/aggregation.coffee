@@ -9,18 +9,18 @@ updateAggregationConjunto = (userId, conjuntoId) ->
     countFrases: Frases.find( conjuntoId: conjuntoId ).count() or 0
     diccionarios: diccionarios
 
-  if aggrDicc = AggregationConjuntoFrases.findOne( conjuntoId: conjuntoId )
-    aggrDiccId = aggrDicc._id
-    delete aggrDicc._id
-    unless _(aggrDicc).isEqual aggr
+  if aggrConj = AggregationConjuntoFrases.findOne( conjuntoId: conjuntoId )
+    aggrConjId = aggrConj._id
+    delete aggrConj._id
+    unless _(aggrConj).isEqual aggr
       delete aggr.conjuntoId # XXX: cannot update a unique field
       try
-        AggregationConjuntoFrases.update aggrDiccId, $set: aggr, (err) ->
+        AggregationConjuntoFrases.update aggrConjId, $set: aggr, (err) ->
           console.log( err ) if err
       catch e 
         console.log e          
   else
-    _(aggrDicc).isEqual aggr
+    _(aggrConj).isEqual aggr
     AggregationConjuntoFrases.insert aggr
 
 Frases.find().observe
