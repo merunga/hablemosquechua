@@ -1,0 +1,73 @@
+<template name="diccionarioEdit">
+  <form id="editDiccionarioForm">
+    <div class="row-fluid">
+      <div class="span6 offset1 last"><h2>
+        {{#if currDiccionario}}
+          Edición diccionario {{currDiccionario.nombre}}
+        {{else}}
+          Nuevo diccionario
+        {{/if}}
+      </h2></div>
+    </div>
+
+    <div class="row-fluid">
+      <div class="span1 offset1">
+        <label class="control-label"
+          for="nombre">Nombre *</label>
+      </div>
+      <div class="span3 last">
+        <input type="text" name="nombre" id="nombre"
+          class="large" required
+          value="{{currDiccionario.nombre}}"></input>
+      </div>
+    </div>
+
+    <div class="row-fluid">
+      <div class="span1 offset1">
+        <label class="control-label"
+          for="variables">Variables *</label>
+      </div>
+      <div class="span3 last">
+        <input type="text" class="large"
+          data-widgettype="tokenfield" required
+          id="variables" name="variables" data-asarray
+          value="{{currDiccionario.variables}}"
+          {{#if currDiccionario}} disabled {{/if}} />
+      </div>
+    </div>
+
+    <div class="row-fluid">
+      <div class="span1 offset1">
+        <label class="control-label"
+          for="variables">Tags</label>
+      </div>
+      <div class="span3 last">
+        <input type="text" class="large"
+          data-widgettype="tokenfield" 
+          id="tags" name="tags" data-asarray
+          value="{{currDiccionario.tags}}"
+          />
+      </div>
+    </div>
+
+    <div class="row-fluid">
+      <div class="span4 offset1">
+        <button type="submit">Guardar</button>
+      </div>
+    </div>
+
+    {{#if currDiccionario}}
+      <div class="row-fluid">
+        <div class="span10 offset1 last">
+          <div id="palabras-table"></div>
+        </div>
+      </div>
+
+      <div class="row-fluid">
+        <div class="span4 offset1">
+          <button type="submit">Guardar</button>
+        </div>
+      </div>
+    {{/if}}
+  </form>
+</template>

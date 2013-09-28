@@ -22,10 +22,10 @@ Router.map ->
   @route "home",
     path: "/"
     onBeforeRun: ->
-      @redirect 'diccionarioCreate'
+      @redirect 'diccionarioList'
 
   @route "login",
     path: "/login"
-    onBeforeRun: ->
+    onAfterRun: ->
       if Meteor.user()
         @redirect 'home'
