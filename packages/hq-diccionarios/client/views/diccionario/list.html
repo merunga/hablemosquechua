@@ -19,8 +19,8 @@
             <a href="{{pathFor 'diccionarioEdit' id=_id}}"
               >{{nombre}}</a>
           </td>
-          <td class="span2">{{variables}}</td>
-          <td class="span2">{{tags}}</td>
+          <td class="span2">{{arrToString variables}}</td>
+          <td class="span2">{{arrToString tags}}</td>
           <td class="span2">{{moment createdAt 'DD/MM/YYYY hh:mm a'}}</td>
           <td class="span1">{{countPalabras}}</td>
           <td class="span1 acciones">
