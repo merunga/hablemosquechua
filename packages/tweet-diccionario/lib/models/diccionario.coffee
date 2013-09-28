@@ -12,3 +12,17 @@ Diccionarios = new Meteor.Collection2 'diccionarios',
       optional: true
 
 PalabrasDiccionario = new Meteor.Collection 'palabrasDiccionario'
+AggregationDiccionario = new Meteor.Collection2 'aggregationDiccionario',
+  schema:
+    diccionarioId:
+      type: String
+      unique: true
+    userId:
+      type: String
+    countPalabras:
+      type: Number
+
+AggregationDiccionario.allow
+  insert: -> false
+  update: -> false
+  remove: -> false

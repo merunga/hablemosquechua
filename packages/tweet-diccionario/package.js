@@ -4,7 +4,7 @@ Package.describe({
 
 Package.on_use(function (api) {
   api.use(['standard-app-packages','coffeescript','iron-router','collection-hooks']);
-  api.use(['bootstrap','tokenfield','handsontable','stylus'],'client');
+  api.use(['bootstrap','tokenfield','handsontable','stylus','utils'],'client');
 
   api.add_files([
     'lib/models/diccionario.coffee'
@@ -18,12 +18,15 @@ Package.on_use(function (api) {
   api.add_files([
     'client/diccionario.styl',
     'client/router.coffee',
-    'client/views/diccionario.html',
-    'client/views/diccionario.coffee'
+    'client/views/diccionario/edit.html',
+    'client/views/diccionario/edit.coffee',
+    'client/views/diccionario/list.html',
+    'client/views/diccionario/list.coffee'
   ], 'client');
 
   api.export([
     'Diccionarios',
-    'PalabrasDiccionario'
+    'PalabrasDiccionario',
+    'AggregationDiccionario'
   ], ['client', 'server'])
 });

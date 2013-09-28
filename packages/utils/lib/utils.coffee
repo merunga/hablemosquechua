@@ -1,7 +1,7 @@
 Meteor.startup ->
   moment.lang 'es'
 
-@Utils =
+Utils =
   round: (num, decimals=2) ->
     return Math.round(num*Math.pow(10,decimals))/Math.pow(10,decimals)
   userIs: (role, userId=null) ->
@@ -32,7 +32,7 @@ Meteor.startup ->
       return parseInt num
 
 if Meteor.isClient
-  @Utils = _.extend @Utils,
+  Utils = _.extend Utils,
     setTitle: (titulo) ->
       if titulo
         document.title = titulo

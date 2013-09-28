@@ -14,3 +14,5 @@ Router.map ->
 
   @route 'diccionarioList',
     path: '/diccionario/listar'
+    waitOn: ->
+      Subscriptions.begin 'diccionarios'

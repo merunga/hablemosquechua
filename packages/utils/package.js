@@ -44,6 +44,7 @@ Package.on_use(function (api) {
   api.add_files('client/helpers.coffee', 'client');
   api.add_files('client/utils.coffee', 'client');
 
+  api.export('Utils', [ 'client', 'server' ])
   api.export('Subscriptions', 'client')
   api.export('Notificaciones', 'client')
 });
