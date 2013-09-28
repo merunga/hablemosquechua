@@ -10,7 +10,8 @@
       </div>
       <div class="span3 last">
         <input type="text" name="nombre" id="nombre"
-          class="large" required></input>
+          class="large" required
+          value={{currDiccionario.nombre}}></input>
       </div>
     </div>
     <div class="row-fluid">
@@ -21,26 +22,30 @@
       <div class="span3 last">
         <input type="text" class="large"
           data-widgettype="tokenfield" required
-          id="variables" name="variables" data-asarray />
+          id="variables" name="variables" data-asarray
+          value={{currDiccionario.variables}}
+          {{#if currDiccionario}} disabled {{/if}} />
       </div>
     </div>
 
     <div class="row-fluid">
       <div class="span4 offset1">
-        <button class="pull-right" type="submit">Guardar</button>
+        <button type="submit">Guardar</button>
       </div>
     </div>
 
-    <div class="row-fluid">
-      <div class="span10 offset1 last">
-        <div id="words-table"></div>
+    {{#if currDiccionario}}
+      <div class="row-fluid">
+        <div class="span10 offset1 last">
+          <div id="palabras-table"></div>
+        </div>
       </div>
-    </div>
 
-    <div class="row-fluid">
-      <div class="span4 offset1">
-        <button class="pull-right" type="submit">Guardar</button>
+      <div class="row-fluid">
+        <div class="span4 offset1">
+          <button type="submit">Guardar</button>
+        </div>
       </div>
-    </div>
+    {{/if}}
   </form>
 </template>
