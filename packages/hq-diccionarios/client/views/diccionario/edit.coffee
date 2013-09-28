@@ -6,10 +6,7 @@ Template.diccionarioEdit.rendered = ->
     # Deps.autorun ->
     cols =  _.union ['_id'], dicc.variables
     palabras = []
-    PalabrasDiccionario.find(
-      { diccionarioId: Session.get 'diccionarioId' },
-      { diccionarioId: 0 }
-    ).forEach (p) ->
+    PalabrasDiccionario.find( diccionarioId: Session.get 'diccionarioId' ).forEach (p) ->
       _(['diccionarioId', 'userId', 'createdAt']).each (f) ->
         delete p[f]
       palabras.push p

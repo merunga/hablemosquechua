@@ -3,37 +3,36 @@ currConjuntoFrases = -> ConjuntosFrases.findOne Session.get( 'conjuntoFrasesId' 
 Template.conjuntoFrasesEdit.rendered = ->
   Tokenfield.init()
   if dicc = currConjuntoFrases()
-    cols =  _.union ['_id'], dicc.variables, ['tags']
+    cols =  ['_id']
+    extraColsLength = 2
     
     frases = []
-    Frases.find(
-      { conjuntoFrasesId: Session.get 'conjuntoFrasesId' },
-      { conjuntoFrasesId: 0 }
-    ).forEach (p) ->
-      _(['conjuntoFrasesId', 'userId', 'createdAt']).each (f) ->
-        delete p[f]
-      frases.push p
+    Frases.find( conjuntoId: Session.get 'conjuntoFrasesId' ).forEach (f) ->
+      frasesAux = [f._id]
+      extraColsLength = f.rafaga.length if f.rafaga?.length > extraColsLength
+      frasesAux.push f.frase
+      _(f.rafaga).each (r) ->
+        frasesAux.push r
+      frases.push frasesAux
 
     if not frases or _(frases).isEmpty()
-      obj = {}
-      _(cols).each (c) -> obj[c] = ''
-      frases = [obj]
-
-    colWidths = [100].concat _(dicc.variables).collect (v) -> 180
-    colWidths.push 300
+      frases = [['','']]
+    
+    colWidths = [100].concat _((num for num in [1..extraColsLength])).collect (v) -> 250
 
     $("#frases-table").handsontable
+      colHeaders: ['_id', 'frase','rafagas ->']
       data: frases
-      colHeaders: cols
       minSpareRows: 1
+      minSpareCols: 2
       colWidths: colWidths
       manualColumnResize: true
       outsideClickDeselects: false
       removeRowPlugin: true
       beforeRemoveRow: (index, amount) ->
         entrada = $('#frases-table').handsontable 'getDataAtRow', index
-        if entrada._id
-          Frases.remove entrada._id
+        if entrada[0]
+          Frases.remove entrada[0]
 
 Template.conjuntoFrasesEdit.helpers
   currConjuntoFrases: -> currConjuntoFrases()
@@ -56,21 +55,26 @@ Template.conjuntoFrasesEdit.events
         else
           data = $( '#frases-table' ).handsontable( 'getData' ).slice 0, -1
           if data
-            _(data).each (p, i) ->
-              if p._id
-                id = p._id
-                delete p._id
-                Frases.update id, {$set:p}, (err) ->
+            _(data).each (f, i) ->
+              rafaga = _(f.splice 2).without null
+              rafaga = null if _(rafaga).isEmpty()
+              frase =
+                frase: f[1]
+                rafaga: rafaga
+              if f[0]
+                id = f[0]
+                Frases.update id, { $set: frase }, (err) ->
                   unless err
                     $( '#frases-table' ).handsontable( 'setDataAtCell', i, 0, id )
+                    Router.go 'conjuntoFrasesEdit', id: Session.get( 'conjuntoFrasesId' )
                   else
                     console.log err
               else
-                delete p._id
-                p.conjuntoFrasesId = Session.get 'conjuntoFrasesId'
-                Frases.insert p, (err, result) ->
+                frase.conjuntoId = Session.get 'conjuntoFrasesId'
+                Frases.insert frase, (err, result) ->
                   unless err
                     $( '#frases-table' ).handsontable( 'setDataAtCell', i, 0, result )
+                    Router.go 'conjuntoFrasesEdit', id: Session.get( 'conjuntoFrasesId' )
                   else
                     console.log err
     

@@ -18,7 +18,6 @@ Frases = new Meteor.Collection2 'frases',
       type: String
     frase:
       type: String
-      optional: true
     rafaga:
       type: [String]
       optional: true
