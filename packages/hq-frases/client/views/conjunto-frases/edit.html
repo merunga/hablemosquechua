@@ -1,7 +1,13 @@
-<template name="diccionarioEdit">
-  <form id="editDiccionarioForm">
+<template name="conjuntoFrasesEdit">
+  <form id="editConjuntoFrasesForm">
     <div class="row-fluid">
-      <div class="span6 offset1 last"><h2>Nuevo diccionario</h2></div>
+      <div class="span6 offset1 last"><h2>
+        {{#if currConjuntoFrases}}
+          Edición conjunto de frases {{currConjuntoFrases.nombre}}
+        {{else}}
+          Nuevo conjunto de frases
+        {{/if}}
+      </h2></div>
     </div>
 
     <div class="row-fluid">
@@ -12,21 +18,7 @@
       <div class="span3 last">
         <input type="text" name="nombre" id="nombre"
           class="large" required
-          value={{currDiccionario.nombre}}></input>
-      </div>
-    </div>
-
-    <div class="row-fluid">
-      <div class="span1 offset1">
-        <label class="control-label"
-          for="variables">Variables *</label>
-      </div>
-      <div class="span3 last">
-        <input type="text" class="large"
-          data-widgettype="tokenfield" required
-          id="variables" name="variables" data-asarray
-          value="{{currDiccionario.variables}}"
-          {{#if currDiccionario}} disabled {{/if}} />
+          value="{{currConjuntoFrases.nombre}}"></input>
       </div>
     </div>
 
@@ -39,7 +31,7 @@
         <input type="text" class="large"
           data-widgettype="tokenfield" 
           id="tags" name="tags" data-asarray
-          value="{{currDiccionario.tags}}"
+          value="{{currConjuntoFrases.tags}}"
           />
       </div>
     </div>
@@ -50,10 +42,10 @@
       </div>
     </div>
 
-    {{#if currDiccionario}}
+    {{#if currConjuntoFrases}}
       <div class="row-fluid">
         <div class="span10 offset1 last">
-          <div id="palabras-table"></div>
+          <div id="frases-table"></div>
         </div>
       </div>
 

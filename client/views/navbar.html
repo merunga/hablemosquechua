@@ -8,9 +8,19 @@
           <li class="dropdown">
               <a href="#" class="dropdown-toggle" data-toggle="dropdown">
               Diccionario <b class="caret"></b></a>
-              <ul class="dropdown-menu nros">
+              <ul class="dropdown-menu">
                 <li><a href="{{pathFor 'diccionarioCreate'}}">Nuevo</a></li>
                 <li><a href="{{pathFor 'diccionarioList'}}">Listar</a></li>
+              </ul>
+            </li>
+        </ul>
+        <ul class="nav">
+          <li class="dropdown">
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+              Frases <b class="caret"></b></a>
+              <ul class="dropdown-menu">
+                <li><a href="{{pathFor 'conjuntoFrasesCreate'}}">Nuevo conjunto</a></li>
+                <li><a href="{{pathFor 'conjuntoFrasesList'}}">Listar conjuntos</a></li>
               </ul>
             </li>
         </ul>

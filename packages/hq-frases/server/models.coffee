@@ -2,19 +2,23 @@ createdAtAndUserId = (userId, doc) ->
   doc.createdAt = Date.now()
   doc.userId = userId
 
-Diccionarios._collection.before.insert createdAtAndUserId
-
-PalabrasDiccionario.before.insert createdAtAndUserId
+ConjuntosFrases._collection.before.insert createdAtAndUserId
+Frases._collection.before.insert createdAtAndUserId
 
 isOwner = (userId, doc) ->
   doc.userId is userId
 
-Diccionarios.allow
+ConjuntosFrases.allow
   insert: -> true
   update: isOwner
   remove: isOwner
 
-PalabrasDiccionario.allow
+Frases.allow
   insert: -> true
   update: isOwner
   remove: isOwner
+
+AggregationConjuntoFrases.allow
+  insert: -> false
+  update: -> false
+  remove: -> false

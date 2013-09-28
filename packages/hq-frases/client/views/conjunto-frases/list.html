@@ -1,31 +1,29 @@
-<template name="diccionarioList">
-  <h2>Diccionarios</h2>
-  {{#if diccionarios}}
+<template name="conjuntoFrasesList">
+  <h2>Conjuntos de Frases</h2>
+  {{#if conjuntosFrases}}
     <table class="table table-striped">
       <thead>
         <tr>
           <td class="span2">Nombre</td>
-          <td class="span2">Variables</td>
           <td class="span2">Tags</td>
           <td class="span2">Fecha Creación</td>
-          <td class="span1">#palabras</td>
+          <td class="span1"># frases</td>
           <td class="span1">Acciones</td>
         </tr>
       </thead>
       <tbody>
-      {{#each diccionarios}}
+      {{#each conjuntosFrases}}
         <tr>
           <td class="span2">
-            <a href="{{pathFor 'diccionarioEdit' id=_id}}"
+            <a href="{{pathFor 'conjuntoFrasesEdit' id=_id}}"
               >{{nombre}}</a>
           </td>
-          <td class="span2">{{variables}}</td>
           <td class="span2">{{tags}}</td>
           <td class="span2">{{moment createdAt 'DD/MM/YYYY hh:mm a'}}</td>
-          <td class="span1">{{countPalabras}}</td>
+          <td class="span1">{{countFrases}}</td>
           <td class="span1 acciones">
-            <a href="{{pathFor 'diccionarioEdit' id=_id}}"><i class="icon-pencil"></i></a>
-            {{#if $eq countPalabras 0}}
+            <a href="{{pathFor 'conjuntoFrasesEdit' id=_id}}"><i class="icon-pencil"></i></a>
+            {{#if $eq countFrases 0}}
               <a href="#" alt="eliminar" title="eliminar"
                 class="eliminar"><i class="icon-trash"></i></a>
             {{/if}}
@@ -37,12 +35,14 @@
         <tr>
           <td class="span7" colspan="3"></td>
           <td class="span2">Total:</td>
-          <td class="span1">{{countPalabrasTotal}}</td>
+          <td class="span1">{{countFrasesTotal}}</td>
           <td class="span1"></td>
         </tr>
       </tfoot>
     </table>
   {{else}}
-    <h3>No hay diccionario</h3>
+    <h3>No hay conjuntos de frases
+      <small><a href="{{pathFor 'conjuntoFrasesCreate'}}">crear nuevo</a>
+    </h3>
   {{/if}}
 </template>

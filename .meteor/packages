@@ -12,9 +12,10 @@ accounts-twitter
 accounts-ui
 iron-router
 collection2
-hq-diccionarios
 bootstrap
 utils
 roles
 collection-hooks
 bootboxjs
+hq-diccionarios
+hq-frases
