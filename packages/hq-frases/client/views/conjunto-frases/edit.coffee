@@ -2,11 +2,14 @@ currConjuntoFrases = -> ConjuntosFrases.findOne Session.get( 'conjuntoFrasesId' 
 
 Template.conjuntoFrasesEdit.rendered = ->
   Tokenfield.init()
+  TagsInput.init @
+
   $( @findAll 'select[required].chosen:not([data-combobox])[multiple]' )
     .each (i,s) ->
       $(s).chosen
         search_contains: true
         width: $(s).data('width')
+
   if conjFr = currConjuntoFrases()
     cols =  ['_id']
     extraColsLength = 2

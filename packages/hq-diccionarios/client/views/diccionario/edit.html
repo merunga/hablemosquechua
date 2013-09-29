@@ -42,11 +42,7 @@
           for="variables">Tags</label>
       </div>
       <div class="span3 last">
-        <input type="text" class="large"
-          data-widgettype="tokenfield" 
-          id="tags" name="tags" data-asarray
-          value="{{currDiccionario.tags}}"
-          />
+        {{ tagsInput name="tags" value=currDiccionario.tags }}
       </div>
     </div>
 

@@ -2,6 +2,8 @@ currSchedule = -> Schedules.findOne Session.get( 'scheduleId' )
 
 Template.scheduleEdit.rendered = ->
   Tokenfield.init()
+  TagsInput.init @
+
   $( @findAll 'select.chosen:not([data-combobox])[multiple]' )
     .each (i,s) ->
       $(s).chosen

@@ -51,11 +51,7 @@
           for="variables">Tags a usar</label>
       </div>
       <div class="span3 last">
-        <input type="text" class="large"
-          data-widgettype="tokenfield" 
-          id="tags" name="tagsAUsar" data-asarray
-          value="{{currSchedule.tagsAUsar}}"
-          />
+        {{ tagsInput name="tagsAUsar" value=currSchedule.tagsAUsar }}
       </div>
     </div>
 

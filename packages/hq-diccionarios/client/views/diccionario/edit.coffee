@@ -2,6 +2,8 @@ currDiccionario = -> Diccionarios.findOne Session.get( 'diccionarioId' )
 
 Template.diccionarioEdit.rendered = ->
   Tokenfield.init()
+  TagsInput.init @
+
   if dicc = currDiccionario()
     # Deps.autorun ->
     cols =  _.union ['_id'], dicc.variables

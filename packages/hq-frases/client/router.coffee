@@ -5,7 +5,10 @@ Router.map ->
     onAfterRun: ->
       Session.set 'conjuntoFrasesId', undefined
     waitOn: ->
-      Subscriptions.begin 'diccionariosAutocomplete'
+      [
+        Subscriptions.begin 'diccionariosAutocomplete'
+        Subscriptions.begin 'tags'
+      ]
 
   @route 'conjuntoFrasesEdit',
     path: '/conjunto-frases/:id/editar'
@@ -13,6 +16,7 @@ Router.map ->
       [
         Subscriptions.begin 'conjuntoFrases', @params.id
         Subscriptions.begin 'diccionariosAutocomplete'
+        Subscriptions.begin 'tags'
       ]
     onAfterRun: ->
       Session.set 'conjuntoFrasesId', @params.id
