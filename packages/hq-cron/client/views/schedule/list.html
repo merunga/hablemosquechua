@@ -1,0 +1,50 @@
+<template name="scheduleList">
+  <h2>Schedules</h2>
+  {{#if schedules}}
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <td class="span2">Nombre</td>
+          <td class="span2">Conjuntos de frases</td>
+          <td class="span2">Tags a usar</td>
+          <td class="span2">Fecha Creación</td>
+          <td class="span1"># entradas</td>
+          <td class="span1">Acciones</td>
+        </tr>
+      </thead>
+      <tbody>
+      {{#each schedules}}
+        <tr>
+          <td class="span2">
+            <a href="{{pathFor 'scheduleEdit' id=_id}}"
+              >{{nombre}}</a>
+          </td>
+          <td class="span2">{{arrToString conjuntosFrases}}</td>
+          <td class="span2">{{arrToString tagsAUsar}}</td>
+          <td class="span2">{{moment createdAt 'DD/MM/YYYY hh:mm a'}}</td>
+          <td class="span1">{{countEntradas}}</td>
+          <td class="span1 acciones">
+            <a href="{{pathFor 'scheduleEdit' id=_id}}"><i class="icon-pencil"></i></a>
+            {{#if $eq countEntradas 0}}
+              <a href="#" alt="eliminar" title="eliminar"
+                class="eliminar"><i class="icon-trash"></i></a>
+            {{/if}}
+          </td>
+        </tr>
+      {{/each}}
+      </tbody>
+      <tfoot>
+        <tr>
+          <td class="span7" colspan="3"></td>
+          <td class="span2">Total:</td>
+          <td class="span1">{{countEntradasTotal}}</td>
+          <td class="span1"></td>
+        </tr>
+      </tfoot>
+    </table>
+  {{else}}
+    <h3>No hay schedules
+      <small><a href="{{pathFor 'scheduleCreate'}}">crear nuevo</a>
+    </h3>
+  {{/if}}
+</template>

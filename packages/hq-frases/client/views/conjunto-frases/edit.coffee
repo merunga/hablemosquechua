@@ -7,7 +7,7 @@ Template.conjuntoFrasesEdit.rendered = ->
       $(s).chosen
         search_contains: true
         width: $(s).data('width')
-  if dicc = currConjuntoFrases()
+  if conjFr = currConjuntoFrases()
     cols =  ['_id']
     extraColsLength = 2
     
@@ -46,16 +46,16 @@ Template.conjuntoFrasesEdit.helpers
 Template.conjuntoFrasesEdit.events
   'submit #editConjuntoFrasesForm': (e) ->
     e.preventDefault()
-    dicc = $(e.currentTarget).formToJSON()
+    conjFr = $(e.currentTarget).formToJSON()
 
     unless currConjuntoFrases()
-      ConjuntosFrases.insert dicc, (err, result) ->
+      ConjuntosFrases.insert conjFr, (err, result) ->
         unless err
           Router.go 'conjuntoFrasesEdit', id: result
         else
           console.log err
     else
-      ConjuntosFrases.update Session.get( 'conjuntoFrasesId' ), {$set: dicc}, (err) ->
+      ConjuntosFrases.update Session.get( 'conjuntoFrasesId' ), {$set: conjFr}, (err) ->
         if err
           console.log( err ) 
         else

@@ -1,7 +1,7 @@
 register = Handlebars.registerHelper
 
 register 'arrToString', (arrAsStr) ->
-  arrAsStr.join ', '
+  arrAsStr?.join ', '
 
 register 'count', (cursor) ->
   return cursor.count() if cursor.count

@@ -30,6 +30,16 @@ Utils =
       return result
     else
       return parseInt num
+  parseNumberArray: (str) ->
+    unless _(str).contains ','
+      return [Utils.parseNumber str]
+    else
+      result = []
+      arr = _(str).trim().split ','
+      _(arr).each (e) ->
+        result.push Utils.parseNumber e
+      return result
+
 
 if Meteor.isClient
   Utils = _.extend Utils,

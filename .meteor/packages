@@ -17,5 +17,7 @@ utils
 roles
 collection-hooks
 bootboxjs
+underscore-string-latest
 hq-diccionarios
 hq-frases
+hq-cron
