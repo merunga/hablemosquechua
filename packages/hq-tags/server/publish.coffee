@@ -1,2 +1,2 @@
 Meteor.publish 'tags', ->
-  Tags.find { userId: @userId }, sort: { nombre:1 }
+  Tags.find { userId: @userId }, sort: { tag: 1 }
