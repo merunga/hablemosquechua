@@ -25,9 +25,24 @@ Template.scheduleEdit.rendered = ->
     colWidths = _(cols).collect (v) -> 180
     colWidths[0] = 100
 
+    diaRegExp = "([1-7])"
+    diasValidator = new RegExp "^#{diaRegExp}(\\s*,\\s*#{diaRegExp})*$"
+
+    horasRegExp = "([01]?[0-9]|2[0-3])"
+    horasValidator = new RegExp "^#{horasRegExp}(\\s*,\\s*#{horasRegExp})*$"
+
+    minsRegExp = "([0-5]?[0-9])"
+    minsValidator = new RegExp "^#{minsRegExp}(\\s*,\\s*#{minsRegExp})*$"
+
     $("#entradas-table").handsontable
       data: entradas
       colHeaders: ['_id','dias semana','horas','minutos']
+      columns: [
+        {data: '_id'}
+        {data: 'diasDeLaSemana', validator: diasValidator, allowInvalid: true}
+        {data: 'horas', validator: horasValidator, allowInvalid: true}
+        {data: 'minutos', validator: minsValidator, allowInvalid: true}
+      ]
       minSpareRows: 1
       colWidths: colWidths
       manualColumnResize: true
@@ -62,7 +77,8 @@ Template.scheduleEdit.events
           if data
             _(data).each (e, i) ->
               _(['diasDeLaSemana', 'horas', 'minutos']).each (f) ->
-                e[f] = Utils.parseNumberArray e[f]
+                e[f] = Utils.parseNumberArray(e[f]) if _(e[f]).isString()
+              
               if e._id
                 id = e._id
                 delete e._id
