@@ -5,7 +5,10 @@ Router.map ->
     onAfterRun: ->
       Session.set 'scheduleId', undefined
     waitOn: ->
-      Subscriptions.begin 'conjuntosFrasesAutocomplete'
+      [
+        Subscriptions.begin 'conjuntosFrasesAutocomplete'
+        Subscriptions.begin 'tags'
+      ]
 
   @route 'scheduleEdit',
     path: '/schedule/:id/editar'
@@ -13,6 +16,7 @@ Router.map ->
       [
         Subscriptions.begin 'schedule', @params.id
         Subscriptions.begin 'conjuntosFrasesAutocomplete'
+        Subscriptions.begin 'tags'
       ]
     onAfterRun: ->
       Session.set 'scheduleId', @params.id

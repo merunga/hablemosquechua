@@ -3,8 +3,11 @@ Package.describe({
 });
 
 Package.on_use(function (api) {
-  api.use(['standard-app-packages','coffeescript','iron-router','collection-hooks']);
-  api.use(['bootstrap','tokenfield','handsontable','stylus','utils'],'client');
+  api.use(['standard-app-packages','coffeescript',
+    'iron-router','collection-hooks']);
+  api.use(['bootstrap','tokenfield','handsontable',
+    'stylus','utils'],'client');
+  api.use('hq-tags',['client','server'],{unordered:true})
 
   api.add_files([
     'lib/models.coffee'
@@ -13,7 +16,7 @@ Package.on_use(function (api) {
   api.add_files([
     'server/models.coffee',
     'server/publish.coffee',
-    'server/aggregation.coffee'
+    'server/observe.coffee'
   ], 'server')
 
   api.add_files([
