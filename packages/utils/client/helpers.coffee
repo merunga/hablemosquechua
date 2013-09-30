@@ -3,6 +3,8 @@ register = Handlebars.registerHelper
 register 'arrToString', (arrAsStr) ->
   arrAsStr?.join ', '
 
+register 'Session', -> Session
+
 register 'count', (cursor) ->
   return cursor.count() if cursor.count
 

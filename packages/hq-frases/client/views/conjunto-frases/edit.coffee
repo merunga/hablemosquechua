@@ -4,7 +4,7 @@ Template.conjuntoFrasesEdit.rendered = ->
   Tokenfield.init()
   TagsInput.init @
 
-  $( @findAll 'select[required].chosen:not([data-combobox])[multiple]' )
+  $( @findAll 'select.chosen:not([data-combobox])[multiple]' )
     .each (i,s) ->
       $(s).chosen
         search_contains: true

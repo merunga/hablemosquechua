@@ -1,0 +1,89 @@
+<template name="calendarioProgramar">
+  <form id="programarForm">
+    <div class="row-fluid">
+      <div class="span11 offset1 last"><h2>Programar Tweets</h2></div>
+    </div>
+
+    <div class="row-fluid">
+      <div class="well span3 offset1" style="padding: 5px; padding-left: 15px">
+        <small>Desde:</small>
+        <div id="desde" class="datetime-picker input-append">
+          <input data-format="dd/MM/yyyy HH:mm:ss PP"
+            type="text" value="" required></input>
+          <span class="add-on">
+            <i data-time-icon="icon-time" data-date-icon="icon-calendar">
+            </i>
+          </span>
+        </div>
+      </div>
+      <div class="well span3" style="padding: 5px; padding-left: 15px">
+        <small>Hasta:</small>
+        <div id="hasta" class="datetime-picker input-append">
+          <input data-format="dd/MM/yyyy HH:mm:ss PP"
+            type="text" value="" required></input>
+          <span class="add-on">
+            <i data-time-icon="icon-time" data-date-icon="icon-calendar">
+            </i>
+          </span>
+        </div>
+      </div>
+    </div>
+
+    <div class="row-fluid">
+      <div class="span2 offset1">
+        <label class="control-label"
+          for="scheduleIds">Usando schedules:</label>
+      </div>
+      <div class="span3 last">
+        {{#isolate}}
+          <select class="chosen" type="text"
+            name="scheduleIds" id="{{random}}-scheduleIds"
+            multiple="multiple" required
+            data-width="100%" data-asarray>
+          {{#each schedules}}
+            <option value="{{this._id}}">{{this.nombre}}</option>
+          {{/each}}
+          </select>
+        {{/isolate}}
+      </div>
+    </div>
+
+    <div class="row-fluid">
+      <div class="span2 offset1">
+        <label class="control-label"
+          for="tagsAUsar">Con estos tags:</label>
+      </div>
+      <div class="span3 last">
+        {{ tagsInput name="tagsAUsar" }}
+      </div>
+    </div>
+
+    {{#isolate}}
+      <div class="row-fluid">
+        <div class="span4 offset1">
+          <button class="calcular" type="submit">
+            {{#unless Session.get 'tweetCount'}}
+              Calcular
+            {{else}}
+              Recalcular
+            {{/unless}}
+          </button>
+        </div>
+      </div>
+
+    
+      {{#if Session.get 'tweetCount'}}
+        <div class="row-fluid">
+          <div class="span4 offset1"><h3>{{Session.get 'tweetCount'}}
+            tweets a programar
+          </h3></div>
+        </div>
+        <div class="row-fluid">
+          <div class="span4 offset1">
+            <button class="programar">Programar!</button>
+          </div>
+        </div>
+      {{/if}}
+    {{/isolate}}
+  </form>
+</template>

@@ -12,7 +12,7 @@ Package.on_use(function (api) {
 
   api.add_files('lib/models.coffee');
   api.add_files([
-    'client/templates.html',
+    'client/views.html',
     'client/helpers.coffee'
   ], 'client');
   api.add_files([

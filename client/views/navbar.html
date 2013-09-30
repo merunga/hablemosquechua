@@ -27,10 +27,20 @@
         <ul class="nav">
           <li class="dropdown">
               <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-              Cron <b class="caret"></b></a>
+              Schedule <b class="caret"></b></a>
               <ul class="dropdown-menu">
-                <li><a href="{{pathFor 'scheduleCreate'}}">Nuevo schedule</a></li>
-                <li><a href="{{pathFor 'scheduleList'}}">Listar schedules</a></li>
+                <li><a href="{{pathFor 'scheduleCreate'}}">Nuevo</a></li>
+                <li><a href="{{pathFor 'scheduleList'}}">Listar</a></li>
+              </ul>
+            </li>
+        </ul>
+        <ul class="nav">
+          <li class="dropdown">
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+              Calendario <b class="caret"></b></a>
+              <ul class="dropdown-menu">
+                <li><a href="{{pathFor 'calendarioProgramar'}}">Programar</a></li>
+                <li><a href="{{pathFor 'calendarioShow'}}">Ver</a></li>
               </ul>
             </li>
         </ul>
