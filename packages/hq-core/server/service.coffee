@@ -38,6 +38,7 @@ HablemosQuechua =
                   tweetTime.minutes mins
                   tweetTime.seconds 0
                   tweetTime.milliseconds 0
+                  tweetTime.zone '-05:00'
                   if tweetTime.isAfter rules.desde and tweetTime.isBefore rules.hasta
                     horarios.push tweetTime.toDate()
       horarios
