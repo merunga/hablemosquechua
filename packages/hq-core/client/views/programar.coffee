@@ -16,15 +16,16 @@ Template.calendarioProgramar.rendered = ->
 Template.calendarioProgramar.helpers
   schedules: -> Schedules.find()
 
+getRules = ->
+  data = $('#programarForm').formToJSON()
+  data.desde = $('#desde').data('datetimepicker').getDate()
+  data.hasta = $('#hasta').data('datetimepicker').getDate()
+  data
+
 Template.calendarioProgramar.events
   'submit #programarForm': (e) ->
     e.preventDefault()
-
-    data = $('#programarForm').formToJSON()
-    data.desde = $('#desde').data('datetimepicker').getDate()
-    data.hasta = $('#hasta').data('datetimepicker').getDate()
-
-    console.log data
+    data = getRules()
 
     Meteor.call 'calcularTweetCount', data, (err, result) ->
       console.log( err ) if err
@@ -32,4 +33,6 @@ Template.calendarioProgramar.events
 
   'click button.programar': (e) ->
     e.preventDefault()
-    data = $('#programarForm').formToJSON()
+    data = getRules()
+
+    Meteor.call 'programarTweets', data

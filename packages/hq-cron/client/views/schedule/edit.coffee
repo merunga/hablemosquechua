@@ -53,7 +53,7 @@ Template.scheduleEdit.rendered = ->
       beforeRemoveRow: (index, amount) ->
         entrada = $('#entradas-table').handsontable 'getDataAtRow', index
         if entrada._id
-          PalabrasDiccionario.remove entrada._id
+          EntradasSchedule.remove entrada._id
 
 Template.scheduleEdit.helpers
   currSchedule: -> currSchedule()
