@@ -42,9 +42,9 @@ HablemosQuechua =
                     horarios.push tweetTime.toDate()
       horarios
 
-    getFrases: (scheduleId) ->
+    getFrases: (scheduleIds) ->
       frases = []
-      conjuntoFrasesIds = Schedules.findOne( scheduleId ).conjuntoFrasesIds
+      conjuntoFrasesIds = Schedules.findOne( _id: { $in: scheduleIds } ).conjuntoFrasesIds
       ConjuntosFrases.find( _id: { $in: conjuntoFrasesIds } ).forEach (cf) ->
         frases = _.union frases, Frases.find(
           { conjuntoId: cf._id },
@@ -52,9 +52,9 @@ HablemosQuechua =
         ).fetch()
       frases
 
-    getPalabras: (scheduleId) ->
+    getPalabras: (scheduleIds) ->
       palabras = []
-      conjuntoFrasesIds = Schedules.findOne( scheduleId ).conjuntoFrasesIds
+      conjuntoFrasesIds = Schedules.findOne( _id: { $in: scheduleIds } ).conjuntoFrasesIds
       ConjuntosFrases.find( _id: { $in: conjuntoFrasesIds } ).forEach (cf) ->
         Diccionarios.find( _id: { $in: cf.diccionarioIds } ).forEach (d) ->
           palabras = _.union palabras, PalabrasDiccionario.find(
@@ -67,6 +67,13 @@ HablemosQuechua =
       index = _.random array.length - 1
       array[index]
 
+  replaceVars: (frase, palabra) ->
+    vars = _(palabra).keys()
+    _(vars).each (varName) ->
+      frase = frase.replace '{'+varName+'}', palabra[varName]
+    return frase
+
+
   newTweet: (palabra, frase, horario) ->
     tweet =
       fraseId: frase._id
@@ -74,11 +81,22 @@ HablemosQuechua =
       fechaHora: horario
       status: Tweets.STATUS.PENDING
 
-    fraseStr = frase.frase
-    vars = _(palabra).keys()
-    _(vars).each (varName) ->
-      fraseStr = fraseStr.replace '{'+varName+'}', palabra[varName]
-
+    fraseStr = HablemosQuechua.replaceVars frase.frase, palabra
     if fraseStr.length <= 140
       tweet.tweet = fraseStr
-      return tweet
+      if frase.rafaga and not _( _(frase.rafaga).without null, '' ).isEmpty()
+        tweets = [tweet]
+        _( _(frase.rafaga).without null, '' ).each (r, i) ->
+          horarioR = moment horario
+          horarioR.add 'minutes', 3
+          rafaga =
+            fraseId: frase._id
+            palabraId: palabra._id
+            fechaHora: horarioR.toDate()
+            status: Tweets.STATUS.PENDING
+            rafagaIdx: i
+          rafaga.tweet = HablemosQuechua.replaceVars r, palabra
+          tweets.push rafaga
+        return tweets
+      else
+        return tweet

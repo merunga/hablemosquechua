@@ -13,7 +13,6 @@ Meteor.startup ->
     tweets = Tweets.find( fechaHora: fechaHora ).fetch()
     if tweets and not _(tweets).isEmpty()
       _(tweets).each (t) ->
-        console.log 'inicio tweet '+t.tweet
         accessCredentials = Meteor.users.findOne( t.userId )?.services?.twitter
         if accessCredentials
           twitter = new Twit

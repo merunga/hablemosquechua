@@ -11,6 +11,9 @@ Schedules = new Meteor.Collection2 'schedules',
     tagsAUsar:
       type: [String]
       optional: true
+    minutosRafaga:
+      type: Number
+      optional: true
 
 EntradasSchedule = new Meteor.Collection2 'entradasSchedule',
   schema:

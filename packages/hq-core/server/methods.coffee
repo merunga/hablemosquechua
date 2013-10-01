@@ -11,8 +11,8 @@ Meteor.methods
     return count
 
   'programarTweets': (rules) ->
-    palabras = utils.getPalabras rules.scheduleId
-    frases   = utils.getFrases rules.scheduleId
+    palabras = utils.getPalabras rules.scheduleIds
+    frases   = utils.getFrases rules.scheduleIds
     horarios = utils.getHorarios rules
 
     _( horarios ).each (h) ->
@@ -22,4 +22,9 @@ Meteor.methods
         p = utils.getOne palabras
         f = utils.getOne frases
         tweet = HablemosQuechua.newTweet p, f, h
-      Tweets.insert tweet
+
+      unless _(tweet).isArray()
+        Tweets.insert tweet
+      else
+        _(tweet).each (t) ->
+          Tweets.insert t
