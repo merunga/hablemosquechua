@@ -4,6 +4,8 @@
     "collection2": {},
     "roles": {},
     "collection-hooks": {},
-    "bootboxjs": {}
+    "bootboxjs": {},
+    "cron": {},
+    "cron-tick": {}
   }
 }

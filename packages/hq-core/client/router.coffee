@@ -1,6 +1,6 @@
 Router.map ->
-  @route 'calendarioProgramar',
-    path: '/calendario/programar'
+  @route 'tweetsProgramar',
+    path: '/tweets/programar'
     waitOn: ->
       [
         Subscriptions.begin 'schedulesAutocomplete'

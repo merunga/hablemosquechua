@@ -13,7 +13,14 @@ Tweets = new Meteor.Collection2 'tweets',
       type: Date
     status:
       type: String
-      optional: true
     twitterResponse:
       type: Object
       optional: true
+    twitterError:
+      type: Object
+      optional: true
+
+Tweets.STATUS =
+  PENDING: 'pending'
+  SUCCESS: 'success'
+  ERROR:   'error'

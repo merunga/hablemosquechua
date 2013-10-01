@@ -6,7 +6,9 @@
       "collection2": {},
       "roles": {},
       "collection-hooks": {},
-      "bootboxjs": {}
+      "bootboxjs": {},
+      "cron": {},
+      "cron-tick": {}
     },
     "packages": {
       "iron-router": {
@@ -16,8 +18,8 @@
       },
       "collection2": {
         "git": "https://github.com/aldeed/meteor-collection2.git",
-        "tag": "v0.2.8",
-        "commit": "52141056ff5c82ad38ae7476be8d01719d82482b"
+        "tag": "v0.2.10",
+        "commit": "7c1adcaab2e8b9bc2de3730d1fe2b5305508f5fe"
       },
       "roles": {
         "git": "https://github.com/alanning/meteor-roles.git",
@@ -33,6 +35,16 @@
         "git": "https://github.com/TimHeckel/meteor-bootboxjs.git",
         "tag": "v3.2.2",
         "commit": "580adfebfa12b4d2186a80cec1109dab74ad6228"
+      },
+      "cron": {
+        "git": "https://github.com/alexsuslov/Meteor.cron.git",
+        "tag": "v0.0.1",
+        "commit": "5216d14472fee7b692e8371aadc9f35f54ba9bb0"
+      },
+      "cron-tick": {
+        "git": "https://github.com/tmeasday/meteor-cron.git",
+        "tag": "v0.0.4",
+        "commit": "44cff9116af510fe53704fdeeff57c444ceb75ba"
       },
       "simple-schema": {
         "git": "https://github.com/aldeed/meteor-simple-schema.git",

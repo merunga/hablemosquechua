@@ -1,4 +1,4 @@
-Template.calendarioProgramar.rendered = ->
+Template.tweetsProgramar.rendered = ->
   TagsInput.init @
 
   $( @findAll 'select.chosen:not([data-combobox])[multiple]' )
@@ -13,7 +13,7 @@ Template.calendarioProgramar.rendered = ->
     ).on 'changeDate', (e) ->
       console.log e.date
 
-Template.calendarioProgramar.helpers
+Template.tweetsProgramar.helpers
   schedules: -> Schedules.find()
 
 getRules = ->
@@ -22,7 +22,7 @@ getRules = ->
   data.hasta = $('#hasta').data('datetimepicker').getDate()
   data
 
-Template.calendarioProgramar.events
+Template.tweetsProgramar.events
   'submit #programarForm': (e) ->
     e.preventDefault()
     data = getRules()

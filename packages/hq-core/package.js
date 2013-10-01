@@ -2,6 +2,8 @@ Package.describe({
   summary: 'core de @hablemosquechua'
 });
 
+Npm.depends({'twit':'1.1.9'})
+
 Package.on_use(function (api) {
   api.use(['standard-app-packages','coffeescript',
     'collection2','iron-router','hq-cron']);
@@ -19,6 +21,7 @@ Package.on_use(function (api) {
   ], 'client');
   
   api.add_files([
+    'server/startup.coffee',
     'server/models.coffee',
     'server/service.coffee',
     'server/methods.coffee'

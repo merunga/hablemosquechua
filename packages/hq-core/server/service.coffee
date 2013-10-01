@@ -36,6 +36,8 @@ HablemosQuechua =
                   tweetTime = moment dia
                   tweetTime.hour hora
                   tweetTime.minutes mins
+                  tweetTime.seconds 0
+                  tweetTime.milliseconds 0
                   if tweetTime.isAfter rules.desde and tweetTime.isBefore rules.hasta
                     horarios.push tweetTime.toDate()
       horarios
@@ -70,6 +72,7 @@ HablemosQuechua =
       fraseId: frase._id
       palabraId: palabra._id
       fechaHora: horario
+      status: Tweets.STATUS.PENDING
 
     fraseStr = frase.frase
     vars = _(palabra).keys()

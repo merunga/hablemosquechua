@@ -18,6 +18,7 @@ roles
 collection-hooks
 bootboxjs
 underscore-string-latest
+cron-tick
 hq-diccionarios
 hq-frases
 hq-cron
