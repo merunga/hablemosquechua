@@ -35,4 +35,8 @@ Template.tweetsProgramar.events
     e.preventDefault()
     data = getRules()
 
-    Meteor.call 'programarTweets', data
+    Meteor.call 'programarTweets', data, (err, result) ->
+      if err
+        alert err
+      else
+        Router.go 'calendarioShow'

@@ -9,3 +9,9 @@ Router.map ->
 
   @route 'calendarioShow',
     path: '/calendario/ver'
+    onBeforeRun: ->
+      Session.set "calendarioTemplateRendered", false
+    waitOn: ->
+      [
+        Subscriptions.begin 'tweets'
+      ]

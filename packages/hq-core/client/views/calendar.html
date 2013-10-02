@@ -1,0 +1,26 @@
+<template name="calendarioShow">
+  {{> calendario}}
+  {{> tweetDetalle}}
+</template>
+
+<template name="calendario">
+{{#constant}}
+<div id="calendario">
+</div>
+{{/constant}}
+</template>
+
+<template name="tweetDetalle">
+{{#constant}}
+<div class="modal hide fade" id="event-details-modal">
+  <div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal">x</button>
+    <h3></h3>
+  </div>
+  <div class="modal-body">
+    <div>
+    </div>
+  </div>
+</div>
+{{/constant}}
+</template>

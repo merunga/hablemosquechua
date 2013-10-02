@@ -9,6 +9,18 @@ Package.on_use(function (api) {
     'collection2','iron-router','hq-cron']);
   api.use(['bootstrap','stylus','utils'],'client');
 
+  api.add_files([
+    'client/stylesheets/calendar.styl',
+    'client/stylesheets/fullcalendar.css',
+    'client/stylesheets/fullcalendar.print.css',
+    'client/stylesheets/jquery-ui-1.10.3.custom.css'
+  ], 'client');
+
+  api.add_files('client/compatibility/fullcalendar.js',
+    'client', {bare: true});
+  api.add_files('client/compatibility/jquery-ui-1.10.3.custom.js',
+    'client', {bare: true});
+
 
   api.add_files('lib/models.coffee')
 
@@ -16,15 +28,16 @@ Package.on_use(function (api) {
   api.add_files([
     'client/views/programar.html',
     'client/views/programar.coffee',
-    'client/views/show.html',
-    'client/views/show.coffee'
+    'client/views/calendar.html',
+    'client/views/calendar.coffee'
   ], 'client');
   
   api.add_files([
     'server/startup.coffee',
     'server/models.coffee',
     'server/service.coffee',
-    'server/methods.coffee'
+    'server/methods.coffee',
+    'server/publish.coffee'
   ], 'server');
 
   api.export('HablemosQuechua');
