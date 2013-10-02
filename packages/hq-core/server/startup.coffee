@@ -8,6 +8,8 @@ Meteor.startup ->
     date = moment()
     date.seconds 0
     date.milliseconds 0
+    date.utc() # universal time
+    date = moment date.format( 'YYYY-MM-DD HH:mm:ss.SSS' )
     fechaHora = date.toDate()
 
     tweets = Tweets.find( fechaHora: fechaHora ).fetch()
@@ -15,7 +17,8 @@ Meteor.startup ->
       _(tweets).each (t) ->
         accessCredentials = Meteor.users.findOne( t.userId )?.services?.twitter
         if accessCredentials
-          console.log 'INFO: tuitenado '+t
+          console.log 'INFO: tuitenado'
+          console.log t.tweet
           twitter = new Twit
             consumer_key:        serviceCredentials.consumerKey
             consumer_secret:     serviceCredentials.secret
@@ -42,3 +45,4 @@ Meteor.startup ->
             )
         else
           console.log 'ERROR: No access credentials found for user '+t.userId
+        console.log '-------'

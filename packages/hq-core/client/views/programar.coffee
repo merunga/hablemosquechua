@@ -18,8 +18,8 @@ Template.tweetsProgramar.helpers
 
 getRules = ->
   data = $('#programarForm').formToJSON()
-  data.desde = $('#desde').data('datetimepicker').getDate()
-  data.hasta = $('#hasta').data('datetimepicker').getDate()
+  data.desde = $('#desde').data('datetimepicker').getLocalDate()
+  data.hasta = $('#hasta').data('datetimepicker').getLocalDate()
   data
 
 Template.tweetsProgramar.events

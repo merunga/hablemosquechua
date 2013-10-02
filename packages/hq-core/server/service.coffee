@@ -18,7 +18,8 @@ HablemosQuechua =
         if d is 0
           d = 7
         else
-          d + 1 
+          d + 1
+
         weeks[d].push date
         i += aDay
 
@@ -36,9 +37,10 @@ HablemosQuechua =
                   tweetTime = moment dia
                   tweetTime.hour hora
                   tweetTime.minutes mins
+                  tweetTime.utc() # universal time
+                  tweetTime = moment tweetTime.format( 'YYYY-MM-DD HH:mm:ss.SSS' )
                   tweetTime.seconds 0
                   tweetTime.milliseconds 0
-                  tweetTime.zone '-05:00'
                   if tweetTime.isAfter rules.desde and tweetTime.isBefore rules.hasta
                     horarios.push tweetTime.toDate()
       horarios
