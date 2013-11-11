@@ -8,18 +8,19 @@
       "collection-hooks": {},
       "bootboxjs": {},
       "cron": {},
-      "cron-tick": {}
+      "cron-tick": {},
+      "underscore-string-latest": {}
     },
     "packages": {
       "iron-router": {
         "git": "https://github.com/EventedMind/iron-router.git",
-        "tag": "v0.5.4",
-        "commit": "3e0e22ff85630b7503d0daa1538c6d90abb84020"
+        "tag": "v0.6.1",
+        "commit": "4e1ee0581d68bff422a915dacb0bd30eae10fe08"
       },
       "collection2": {
         "git": "https://github.com/aldeed/meteor-collection2.git",
-        "tag": "v0.2.10",
-        "commit": "7c1adcaab2e8b9bc2de3730d1fe2b5305508f5fe"
+        "tag": "v0.2.11",
+        "commit": "34ea61718c8826dfa9236222cec6c097bd41ae6b"
       },
       "roles": {
         "git": "https://github.com/alanning/meteor-roles.git",
@@ -28,8 +29,8 @@
       },
       "collection-hooks": {
         "git": "https://github.com/matb33/meteor-collection-hooks.git",
-        "tag": "v0.5.3",
-        "commit": "cbcaf9755ea9821482d7794690ee72b2bcb09269"
+        "tag": "v0.5.4",
+        "commit": "7f286358af49ffc1a63e97354f2f306a911bacc0"
       },
       "bootboxjs": {
         "git": "https://github.com/TimHeckel/meteor-bootboxjs.git",
@@ -46,10 +47,15 @@
         "tag": "v0.0.4",
         "commit": "44cff9116af510fe53704fdeeff57c444ceb75ba"
       },
+      "underscore-string-latest": {
+        "git": "https://github.com/TimHeckel/meteor-underscore-string.git",
+        "tag": "v2.3.3",
+        "commit": "4a5d70eee48fbd90a6e6fc78747250d704a0b3bb"
+      },
       "simple-schema": {
         "git": "https://github.com/aldeed/meteor-simple-schema.git",
-        "tag": "v0.2.7",
-        "commit": "1989849e97ee20f8226dd58b2630a6c6e3416598"
+        "tag": "v0.2.16",
+        "commit": "fae2b014ffc26dfccd3aab38e45d60dda34fd03c"
       }
     }
   }

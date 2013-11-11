@@ -1,9 +1,9 @@
 Router.configure
-  layout: 'layout'
+  layoutTemplate: 'layout'
   notFoundTemplate: 'notFound'
   loadingTemplate: 'loading'
   before: ->
-    routeName = @context.route.name
+    routeName = @route.name
     publicRoutes = [
       'login'
     ]
@@ -21,7 +21,7 @@ Router.configure
 Router.map ->
   @route "home",
     path: "/"
-    onBeforeRun: ->
+    before: ->
       @redirect 'diccionarioList'
 
   @route "login",

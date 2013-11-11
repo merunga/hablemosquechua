@@ -1,0 +1,8 @@
+#!/bin/sh
+export ROOT_URL='http://localhost:3000'
+export PORT=3000
+export MONGO_URL='mongodb://localhost:27017/hablemosquechua'
+export MAIL_URL=''
+export ENV='development'
+export DISABLE_WEBSOCKETS=1
+

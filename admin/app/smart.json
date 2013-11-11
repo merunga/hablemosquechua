@@ -6,6 +6,7 @@
     "collection-hooks": {},
     "bootboxjs": {},
     "cron": {},
-    "cron-tick": {}
+    "cron-tick": {},
+    "underscore-string-latest": {}
   }
 }
