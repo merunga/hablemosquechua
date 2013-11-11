@@ -1,0 +1,7 @@
+name: hablemosquechia
+markdown: redcarpet
+pygments: true
+source: web
+stylus:
+  compress: true
+  path: ./web/css
