@@ -19,10 +19,11 @@ collection-hooks
 bootboxjs
 underscore-string-latest
 cron-tick
+pince
+
 hq-diccionarios
 hq-frases
 hq-cron
 hq-tags
 hq-core
-hq-preguntas
-pince
+hq-stream

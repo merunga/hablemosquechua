@@ -1,0 +1,1 @@
+logger = new Logger('stream');

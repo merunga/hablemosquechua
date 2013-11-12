@@ -1,1 +1,0 @@
-logger = new Logger('preguntas');
