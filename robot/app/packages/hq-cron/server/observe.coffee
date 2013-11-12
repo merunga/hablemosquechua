@@ -22,10 +22,15 @@ updateAggregationSchedule = (userId, scheduleId) ->
         AggregationSchedule.update aggrSchedId, $set: aggr, (err) ->
           logger.error( err ) if err
       catch e 
-        logger.error e          
+        logger.error e
+        logger.error AggregationSchedule.namedContext("default").invalidKeys()
   else
     _(aggrSched).isEqual aggr
-    AggregationSchedule.insert aggr
+    try
+      AggregationSchedule.insert aggr
+    catch e
+      logger.error e
+      logger.error AggregationSchedule.namedContext("default").invalidKeys()
 
 EntradasSchedule.find().observe
   added: (doc) ->

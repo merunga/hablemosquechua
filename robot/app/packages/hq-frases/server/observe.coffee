@@ -18,10 +18,15 @@ updateAggregationConjunto = (userId, conjuntoId) ->
         AggregationConjuntoFrases.update aggrConjId, $set: aggr, (err) ->
           logger.error( err ) if err
       catch e 
-        logger.error e          
+        logger.error e
+        logger.error AggregationConjuntoFrases.namedContext("default").invalidKeys()
   else
     _(aggrConj).isEqual aggr
-    AggregationConjuntoFrases.insert aggr
+    try
+      AggregationConjuntoFrases.insert aggr
+    catch e 
+      logger.error e
+      logger.error AggregationConjuntoFrases.namedContext("default").invalidKeys()   
 
 Frases.find().observe
   added: (doc) ->
