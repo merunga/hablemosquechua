@@ -18,9 +18,19 @@ Meteor.startup ->
         stream = twitter.stream('statuses/filter', { track: currUser })
         streams[u._id] = stream
         stream.on 'tweet', (tweet)->
-          if tweet.user.screen_name isnt accessCredentials.screenName
-            logger.info "------- from #{tweet.user.screen_name}"
-            logger.info tweet.text
+          sname = tweet.user.screen_name
+          # if sname isnt accessCredentials.screenName
+          #   if sname is admin
+          #     if tweet is command
+          #       exec tweet.text
+          #   else if sname is moderador
+          #     retweet tweet.text
+          #   else if tweet.text like any preguntas?
+          #     termino, idioma = extraer(tweet.text)
+          #     if termino in diccionario?
+          #       then tweet respuesta
+          #     else
+          #       retweet a la comunidad
 
     removed: (u) ->
       streams[u._id].stop()

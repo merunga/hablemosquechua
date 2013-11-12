@@ -1,0 +1,50 @@
+<template name="conjuntoPreguntasList">
+  <h2>Conjuntos de Preguntas</h2>
+  {{#if conjuntosPreguntas}}
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <td class="span2">Nombre</td>
+          <td class="span2">Diccionarios</td>
+          <td class="span2">Tags</td>
+          <td class="span2">Fecha Creación</td>
+          <td class="span1"># preguntas</td>
+          <td class="span1">Acciones</td>
+        </tr>
+      </thead>
+      <tbody>
+      {{#each conjuntosPreguntas}}
+        <tr>
+          <td class="span2">
+            <a href="{{pathFor 'conjuntoPreguntasEdit'}}"
+              >{{nombre}}</a>
+          </td>
+          <td class="span2">{{arrToString diccionarios}}</td>
+          <td class="span2">{{arrToString tags}}</td>
+          <td class="span2">{{moment createdAt 'DD/MM/YYYY hh:mm a'}}</td>
+          <td class="span1">{{countPreguntas}}</td>
+          <td class="span1 acciones">
+            <a href="{{pathFor 'conjuntoPreguntasEdit'}}"><i class="icon-pencil"></i></a>
+            {{#if $eq countPreguntas 0}}
+              <a href="#" alt="eliminar" title="eliminar"
+                class="eliminar"><i class="icon-trash"></i></a>
+            {{/if}}
+          </td>
+        </tr>
+      {{/each}}
+      </tbody>
+      <tfoot>
+        <tr>
+          <td class="span7" colspan="3"></td>
+          <td class="span2">Total:</td>
+          <td class="span1">{{countPreguntasTotal}}</td>
+          <td class="span1"></td>
+        </tr>
+      </tfoot>
+    </table>
+  {{else}}
+    <h3>No hay conjuntos de preguntas
+      <small><a href="{{pathFor 'conjuntoPreguntasCreate'}}">crear nuevo</a>
+    </h3>
+  {{/if}}
+</template>
