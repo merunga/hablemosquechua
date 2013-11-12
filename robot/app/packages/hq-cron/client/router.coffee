@@ -2,7 +2,7 @@ Router.map ->
   @route 'scheduleCreate',
     path: '/schedule/nuevo'
     template: 'scheduleEdit'
-    onAfterRun: ->
+    after: ->
       Session.set 'scheduleId', undefined
     waitOn: ->
       [
@@ -11,15 +11,15 @@ Router.map ->
       ]
 
   @route 'scheduleEdit',
-    path: '/schedule/:id/editar'
+    path: '/schedule/:_id/editar'
     waitOn: ->
       [
-        Subscriptions.begin 'schedule', @params.id
+        Subscriptions.begin 'schedule', @params._id
         Subscriptions.begin 'conjuntosFrasesAutocomplete'
         Subscriptions.begin 'tags'
       ]
-    onAfterRun: ->
-      Session.set 'scheduleId', @params.id
+    after: ->
+      Session.set 'scheduleId', @params._id
 
   @route 'scheduleList',
     path: '/schedule/listar'

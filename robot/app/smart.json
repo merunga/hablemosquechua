@@ -5,8 +5,8 @@
     "roles": {},
     "collection-hooks": {},
     "bootboxjs": {},
-    "cron": {},
     "cron-tick": {},
-    "underscore-string-latest": {}
+    "underscore-string-latest": {},
+    "pince": {}
   }
 }

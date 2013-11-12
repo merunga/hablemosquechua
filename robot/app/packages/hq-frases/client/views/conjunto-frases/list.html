@@ -16,7 +16,7 @@
       {{#each conjuntosFrases}}
         <tr>
           <td class="span2">
-            <a href="{{pathFor 'conjuntoFrasesEdit' id=_id}}"
+            <a href="{{pathFor 'conjuntoFrasesEdit'}}"
               >{{nombre}}</a>
           </td>
           <td class="span2">{{arrToString diccionarios}}</td>
@@ -24,7 +24,7 @@
           <td class="span2">{{moment createdAt 'DD/MM/YYYY hh:mm a'}}</td>
           <td class="span1">{{countFrases}}</td>
           <td class="span1 acciones">
-            <a href="{{pathFor 'conjuntoFrasesEdit' id=_id}}"><i class="icon-pencil"></i></a>
+            <a href="{{pathFor 'conjuntoFrasesEdit'}}"><i class="icon-pencil"></i></a>
             {{#if $eq countFrases 0}}
               <a href="#" alt="eliminar" title="eliminar"
                 class="eliminar"><i class="icon-trash"></i></a>

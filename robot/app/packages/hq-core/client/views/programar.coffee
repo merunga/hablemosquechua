@@ -11,7 +11,7 @@ Template.tweetsProgramar.rendered = ->
       language: 'es'
       pick12HourFormat: true
     ).on 'changeDate', (e) ->
-      console.log e.date
+      logger.info e.date
 
 Template.tweetsProgramar.helpers
   schedules: -> Schedules.find()
@@ -28,7 +28,7 @@ Template.tweetsProgramar.events
     data = getRules()
 
     Meteor.call 'calcularTweetCount', data, (err, result) ->
-      console.log( err ) if err
+      logger.error( err ) if err
       Session.set( 'tweetCount', result) if result
 
   'click button.programar': (e) ->

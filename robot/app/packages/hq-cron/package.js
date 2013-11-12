@@ -4,11 +4,12 @@ Package.describe({
 
 Package.on_use(function (api) {
   api.use(['standard-app-packages','coffeescript','iron-router',
-    'collection-hooks','hq-frases']);
+    'collection-hooks','hq-frases','pince']);
   api.use(['bootstrap','stylus','utils','tokenfield'],'client');
   api.use('hq-tags',['client','server'],{unordered:true})
 
   api.add_files([
+    'lib/logger.js',
     'lib/models.coffee'
   ], ['client','server'])
 

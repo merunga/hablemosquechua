@@ -16,7 +16,7 @@
       {{#each diccionarios}}
         <tr>
           <td class="span2">
-            <a href="{{pathFor 'diccionarioEdit' id=_id}}"
+            <a href="{{pathFor 'diccionarioEdit'}}"
               >{{nombre}}</a>
           </td>
           <td class="span2">{{arrToString variables}}</td>
@@ -24,7 +24,7 @@
           <td class="span2">{{moment createdAt 'DD/MM/YYYY hh:mm a'}}</td>
           <td class="span1">{{countPalabras}}</td>
           <td class="span1 acciones">
-            <a href="{{pathFor 'diccionarioEdit' id=_id}}"><i class="icon-pencil"></i></a>
+            <a href="{{pathFor 'diccionarioEdit'}}"><i class="icon-pencil"></i></a>
             {{#if $eq countPalabras 0}}
               <a href="#" alt="eliminar" title="eliminar"
                 class="eliminar"><i class="icon-trash"></i></a>

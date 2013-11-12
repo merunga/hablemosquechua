@@ -11,15 +11,21 @@ updateAggregationDiccionario = (userId, diccionarioId) ->
       delete aggr.diccionarioId # XXX: cannot update a unique field
       try
         AggregationDiccionario.update aggrDiccId, $set: aggr, (err) ->
-          console.log( err ) if err
+          logger.error( err ) if err
       catch e 
-        console.log e          
+        logger.error e
+        logger.error AggregationDiccionario.namedContext("default").invalidKeys()       
   else
     _(aggrDicc).isEqual aggr
-    AggregationDiccionario.insert aggr
+    try
+      AggregationDiccionario.insert aggr
+    catch e
+      logger.error e
+      logger.error AggregationDiccionario.namedContext("default").invalidKeys()
 
 PalabrasDiccionario.find().observe
   added: (doc) ->
+    logger.info(doc) unless doc.diccionarioId
     updateAggregationDiccionario doc.userId, doc.diccionarioId
   changed: (newDoc, oldDoc) ->
     updateAggregationDiccionario newDoc.userId, newDoc.diccionarioId

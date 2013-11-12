@@ -21,4 +21,4 @@ Template.scheduleList.events
       if result
         Schedules.remove {_id: self._id}, (err, result2) ->
           if err
-            console.log err
+            logger.error err

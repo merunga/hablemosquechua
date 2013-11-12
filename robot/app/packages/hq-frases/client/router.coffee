@@ -2,7 +2,7 @@ Router.map ->
   @route 'conjuntoFrasesCreate',
     path: '/conjunto-frases/nuevo'
     template: 'conjuntoFrasesEdit'
-    onAfterRun: ->
+    after: ->
       Session.set 'conjuntoFrasesId', undefined
     waitOn: ->
       [
@@ -11,15 +11,15 @@ Router.map ->
       ]
 
   @route 'conjuntoFrasesEdit',
-    path: '/conjunto-frases/:id/editar'
+    path: '/conjunto-frases/:_id/editar'
     waitOn: ->
       [
-        Subscriptions.begin 'conjuntoFrases', @params.id
+        Subscriptions.begin 'conjuntoFrases', @params._id
         Subscriptions.begin 'diccionariosAutocomplete'
         Subscriptions.begin 'tags'
       ]
-    onAfterRun: ->
-      Session.set 'conjuntoFrasesId', @params.id
+    after: ->
+      Session.set 'conjuntoFrasesId', @params._id
 
   @route 'conjuntoFrasesList',
     path: '/conjunto-frases/listar'

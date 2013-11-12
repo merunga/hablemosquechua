@@ -21,4 +21,4 @@ Template.conjuntoFrasesList.events
       if result
         ConjuntosFrases.remove {_id: self._id}, (err, result2) ->
           if err
-            console.log err
+            logger.error err

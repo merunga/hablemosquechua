@@ -4,18 +4,18 @@ Router.map ->
     template: 'diccionarioEdit'
     waitOn: ->
       Subscriptions.begin 'tags'
-    onAfterRun: ->
+    after: ->
       Session.set 'diccionarioId', undefined
 
   @route 'diccionarioEdit',
-    path: '/diccionario/:id/editar'
+    path: '/diccionario/:_id/editar'
     waitOn: ->
       [
-        Subscriptions.begin 'diccionario', @params.id
+        Subscriptions.begin 'diccionario', @params._id
         Subscriptions.begin 'tags'
       ]
-    onAfterRun: ->
-      Session.set 'diccionarioId', @params.id
+    after: ->
+      Session.set 'diccionarioId', @params._id
 
   @route 'diccionarioList',
     path: '/diccionario/listar'

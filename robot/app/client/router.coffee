@@ -26,6 +26,6 @@ Router.map ->
 
   @route "login",
     path: "/login"
-    onAfterRun: ->
+    after: ->
       if Meteor.user()
         @redirect 'home'

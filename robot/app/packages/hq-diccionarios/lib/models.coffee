@@ -12,6 +12,9 @@ Diccionarios = new Meteor.Collection2 'diccionarios',
       optional: true
 
 PalabrasDiccionario = new Meteor.Collection 'palabrasDiccionario'
+PalabrasDiccionario.allow
+  insert: (userId, doc) ->
+    return ( doc.diccionarioId isnt undefined )
 
 AggregationDiccionario = new Meteor.Collection2 'aggregationDiccionario',
   schema:

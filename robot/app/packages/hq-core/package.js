@@ -2,11 +2,11 @@ Package.describe({
   summary: 'core de @hablemosquechua'
 });
 
-Npm.depends({'twit':'1.1.9'})
+Npm.depends({'twit':'1.1.11'})
 
 Package.on_use(function (api) {
   api.use(['standard-app-packages','coffeescript',
-    'collection2','iron-router','hq-cron']);
+    'collection2','iron-router','hq-cron','cron-tick','pince']);
   api.use(['bootstrap','stylus','utils'],'client');
 
   api.add_files([
@@ -22,7 +22,10 @@ Package.on_use(function (api) {
     'client', {bare: true});
 
 
-  api.add_files('lib/models.coffee')
+  api.add_files([
+    'lib/logger.js',
+    'lib/models.coffee'
+  ])
 
   api.add_files('client/router.coffee', 'client');
   api.add_files([

@@ -17,8 +17,8 @@ Meteor.startup ->
       _(tweets).each (t) ->
         accessCredentials = Meteor.users.findOne( t.userId )?.services?.twitter
         if accessCredentials
-          console.log 'INFO: tuitenado'
-          console.log t.tweet
+          logger.info 'INFO: tuitenado'
+          logger.info t.tweet
           twitter = new Twit
             consumer_key:        serviceCredentials.consumerKey
             consumer_secret:     serviceCredentials.secret
@@ -28,7 +28,7 @@ Meteor.startup ->
           twitter.post 'statuses/update', { status: t.tweet },
             Meteor.bindEnvironment( (err, response) ->
               if err
-                console.log 'ERROR: '+err
+                logger.error err
                 Tweets._collection.update t._id,
                   $set:
                     status: Tweets.STATUS.ERROR
@@ -40,9 +40,8 @@ Meteor.startup ->
                     status: Tweets.STATUS.SUCCESS
                     twitterResponse: response
             , (e) ->
-              console.log 'Exception on bindEnvironment'
-              console.log e
+              logger.error 'Exception on bindEnvironment'
+              logger.error e
             )
         else
-          console.log 'ERROR: No access credentials found for user '+t.userId
-        console.log '-------'
+          logger.error 'No access credentials found for user '+t.userId

@@ -44,13 +44,13 @@ Template.diccionarioEdit.events
     unless currDiccionario()
       Diccionarios.insert dicc, (err, result) ->
         unless err
-          Router.go 'diccionarioEdit', id: result
+          Router.go 'diccionarioEdit', _id: result
         else
-          console.log err
+          logger.error err
     else
       Diccionarios.update Session.get( 'diccionarioId' ), {$set: dicc}, (err) ->
         if err
-          console.log( err ) 
+          logger.error err
         else
           data = $( '#palabras-table' ).handsontable( 'getData' ).slice 0, -1
           if data
@@ -62,7 +62,7 @@ Template.diccionarioEdit.events
                   unless err
                     $( '#palabras-table' ).handsontable( 'setDataAtCell', i, 0, id )
                   else
-                    console.log err
+                    logger.error err
               else
                 delete p._id
                 p.diccionarioId = Session.get 'diccionarioId'
@@ -70,7 +70,7 @@ Template.diccionarioEdit.events
                   unless err
                     $( '#palabras-table' ).handsontable( 'setDataAtCell', i, 0, result )
                   else
-                    console.log err
+                    logger.error err
     
   'change #variables': (e, tmpl) ->
-    console.log e.currentTarget.value
+    logger.info g e.currentTarget.value

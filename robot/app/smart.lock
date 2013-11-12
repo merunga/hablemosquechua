@@ -7,9 +7,9 @@
       "roles": {},
       "collection-hooks": {},
       "bootboxjs": {},
-      "cron": {},
       "cron-tick": {},
-      "underscore-string-latest": {}
+      "underscore-string-latest": {},
+      "pince": {}
     },
     "packages": {
       "iron-router": {
@@ -37,11 +37,6 @@
         "tag": "v3.2.2",
         "commit": "580adfebfa12b4d2186a80cec1109dab74ad6228"
       },
-      "cron": {
-        "git": "https://github.com/alexsuslov/Meteor.cron.git",
-        "tag": "v0.0.1",
-        "commit": "5216d14472fee7b692e8371aadc9f35f54ba9bb0"
-      },
       "cron-tick": {
         "git": "https://github.com/tmeasday/meteor-cron.git",
         "tag": "v0.0.4",
@@ -51,6 +46,11 @@
         "git": "https://github.com/TimHeckel/meteor-underscore-string.git",
         "tag": "v2.3.3",
         "commit": "4a5d70eee48fbd90a6e6fc78747250d704a0b3bb"
+      },
+      "pince": {
+        "git": "https://github.com/mad-eye/pince.git",
+        "tag": "v0.0.2",
+        "commit": "ac4c09d12b850ce09f2deefbcbfd13a6620ec7aa"
       },
       "simple-schema": {
         "git": "https://github.com/aldeed/meteor-simple-schema.git",

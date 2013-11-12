@@ -20,9 +20,9 @@ updateAggregationSchedule = (userId, scheduleId) ->
       delete aggr.scheduleId # XXX: cannot update a unique field
       try
         AggregationSchedule.update aggrSchedId, $set: aggr, (err) ->
-          console.log( err ) if err
+          logger.error( err ) if err
       catch e 
-        console.log e          
+        logger.error e          
   else
     _(aggrSched).isEqual aggr
     AggregationSchedule.insert aggr

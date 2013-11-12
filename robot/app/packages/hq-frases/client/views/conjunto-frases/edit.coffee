@@ -54,13 +54,13 @@ Template.conjuntoFrasesEdit.events
     unless currConjuntoFrases()
       ConjuntosFrases.insert conjFr, (err, result) ->
         unless err
-          Router.go 'conjuntoFrasesEdit', id: result
+          Router.go 'conjuntoFrasesEdit', _id: result
         else
-          console.log err
+          logger.error err
     else
       ConjuntosFrases.update Session.get( 'conjuntoFrasesId' ), {$set: conjFr}, (err) ->
         if err
-          console.log( err ) 
+          logger.error err
         else
           data = $( '#frases-table' ).handsontable( 'getData' ).slice 0, -1
           if data
@@ -75,17 +75,17 @@ Template.conjuntoFrasesEdit.events
                 Frases.update id, { $set: frase }, (err) ->
                   unless err
                     $( '#frases-table' ).handsontable( 'setDataAtCell', i, 0, id )
-                    Router.go 'conjuntoFrasesEdit', id: Session.get( 'conjuntoFrasesId' )
+                    Router.go 'conjuntoFrasesEdit', _id: Session.get( 'conjuntoFrasesId' )
                   else
-                    console.log err
+                    logger.error err
               else
                 frase.conjuntoId = Session.get 'conjuntoFrasesId'
                 Frases.insert frase, (err, result) ->
                   unless err
                     $( '#frases-table' ).handsontable( 'setDataAtCell', i, 0, result )
-                    Router.go 'conjuntoFrasesEdit', id: Session.get( 'conjuntoFrasesId' )
+                    Router.go 'conjuntoFrasesEdit', _id: Session.get( 'conjuntoFrasesId' )
                   else
-                    console.log err
+                    logger.error err
     
   'change #variables': (e, tmpl) ->
-    console.log e.currentTarget.value
+    logger.info e.currentTarget.value

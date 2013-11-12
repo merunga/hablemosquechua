@@ -16,9 +16,9 @@ updateAggregationConjunto = (userId, conjuntoId) ->
       delete aggr.conjuntoId # XXX: cannot update a unique field
       try
         AggregationConjuntoFrases.update aggrConjId, $set: aggr, (err) ->
-          console.log( err ) if err
+          logger.error( err ) if err
       catch e 
-        console.log e          
+        logger.error e          
   else
     _(aggrConj).isEqual aggr
     AggregationConjuntoFrases.insert aggr

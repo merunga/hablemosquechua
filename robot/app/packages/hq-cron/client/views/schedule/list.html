@@ -16,7 +16,7 @@
       {{#each schedules}}
         <tr>
           <td class="span2">
-            <a href="{{pathFor 'scheduleEdit' id=_id}}"
+            <a href="{{pathFor 'scheduleEdit'}}"
               >{{nombre}}</a>
           </td>
           <td class="span2">{{arrToString conjuntosFrases}}</td>
@@ -24,7 +24,7 @@
           <td class="span2">{{moment createdAt 'DD/MM/YYYY hh:mm a'}}</td>
           <td class="span1">{{countEntradas}}</td>
           <td class="span1 acciones">
-            <a href="{{pathFor 'scheduleEdit' id=_id}}"><i class="icon-pencil"></i></a>
+            <a href="{{pathFor 'scheduleEdit'}}"><i class="icon-pencil"></i></a>
             {{#if $eq countEntradas 0}}
               <a href="#" alt="eliminar" title="eliminar"
                 class="eliminar"><i class="icon-trash"></i></a>

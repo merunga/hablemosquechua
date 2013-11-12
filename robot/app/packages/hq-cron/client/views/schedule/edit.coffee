@@ -67,13 +67,13 @@ Template.scheduleEdit.events
     unless currSchedule()
       Schedules.insert sched, (err, result) ->
         unless err
-          Router.go 'scheduleEdit', id: result
+          Router.go 'scheduleEdit', _id: result
         else
-          console.log err
+          logger.error err
     else
       Schedules.update Session.get( 'scheduleId' ), {$set: sched}, (err) ->
         if err
-          console.log( err ) 
+          logger.error err
         else
           data = $( '#entradas-table' ).handsontable( 'getData' ).slice 0, -1
           if data
@@ -88,7 +88,7 @@ Template.scheduleEdit.events
                   unless err
                     $( '#entradas-table' ).handsontable( 'setDataAtCell', i, 0, id )
                   else
-                    console.log err
+                    logger.error err
               else
                 delete e._id
                 e.scheduleId = Session.get 'scheduleId'
@@ -96,7 +96,7 @@ Template.scheduleEdit.events
                   unless err
                     $( '#entradas-table' ).handsontable( 'setDataAtCell', i, 0, result )
                   else
-                    console.log err
+                    logger.error err
     
   'change #variables': (e, tmpl) ->
-    console.log e.currentTarget.value
+    logger.info e.currentTarget.value
