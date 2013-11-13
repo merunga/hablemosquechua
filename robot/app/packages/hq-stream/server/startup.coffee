@@ -2,8 +2,8 @@ Meteor.startup ->
   Twit = Npm.require 'twit'
   streams = {}
   
-  serviceCredentials = Accounts.loginServiceConfiguration.findOne service: 'twitter'
   Deps.autorun ->
+    serviceCredentials = Accounts.loginServiceConfiguration.findOne service: 'twitter'
     if serviceCredentials
       Meteor.users.find( 'services.twitter': { $exists: true } ).observe
         added: (u) ->
@@ -45,7 +45,7 @@ Meteor.startup ->
                     logger.info "Enviando respuesta a pregunta de @#{sname}: #{potencialPregunta}"
                   else
                     tweet.status = Tweets.STATUS.ERROR
-                    tweet.twitterResponse = err
+                    tweet.twitterError = err
                     logger.info "Error al enviar respuesta a pregunta de @#{sname}: #{potencialPregunta}"
                   Tweets._collection.insert tweet
                 , (e) ->

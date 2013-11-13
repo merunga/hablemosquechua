@@ -92,17 +92,16 @@ HablemosQuechua =
       fechaHora: horario
       status: Tweets.STATUS.PENDING
 
-    esFrase = frase.frase?
-    esPregunta = frase.pregunta?
+    tweet.esFrase = frase.frase?
+    tweet.esPregunta = frase.pregunta?
 
-    texto = if esFrase then frase.frase else frase.pregunta
+    texto = if tweet.esFrase then frase.frase else frase.pregunta
 
     fraseStr = HablemosQuechua.replaceVars texto, palabra
     if fraseStr.length <= 140
       tweet.tweet = fraseStr
-      if esFrase
+      if tweet.esFrase
         tweet.fraseId = frase._id
-        tweet.esFrase = true
         if frase.rafaga and not _( _(frase.rafaga).without null, '' ).isEmpty()
           tweets = [tweet]
           lastTime = moment horario
@@ -121,9 +120,8 @@ HablemosQuechua =
           return tweets
         else
           return tweet
-      else if esPregunta
+      else if tweet.esPregunta
         tweet.preguntaId = frase._id
-        tweet.esPregunta = true
         tweets = [tweet]
         horarioR = moment horario
         horarioR.add 'minutes', 3

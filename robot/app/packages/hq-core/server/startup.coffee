@@ -1,8 +1,8 @@
 Twit = Npm.require 'twit'
 
 Meteor.startup ->
-  serviceCredentials = Accounts.loginServiceConfiguration.findOne service: 'twitter'
   Deps.autorun ->
+    serviceCredentials = Accounts.loginServiceConfiguration.findOne service: 'twitter'
     if serviceCredentials
       TweetCron = new Cron()
       TweetCron.addJob 1, -> # every minute
@@ -33,7 +33,6 @@ Meteor.startup ->
                       $set:
                         status: Tweets.STATUS.ERROR
                         twitterError: err
-
                   else if response
                     Tweets._collection.update t._id,
                       $set:
