@@ -39,6 +39,9 @@ $.fn.formToJSON = ->
     else
       unless _(indexed_array[n['name']]).isArray()
         indexed_array[n['name']] = [currVal]
-      indexed_array[n['name']].push value
+      if _(value).isArray()
+        indexed_array[n['name']] = _(value).union indexed_array[n['name']]
+      else
+        indexed_array[n['name']].push value
 
   return deepen indexed_array
