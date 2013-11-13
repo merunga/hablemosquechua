@@ -25,7 +25,7 @@ Meteor.startup ->
                 if t = DiccionariosService.traducir u._id, p.palabra.palabra, p.palabra.placeholder
                   tweet = HablemosQuechua.replaceVars p.pregunta.respuesta, t
                 else
-                  tweet = "lo siento, pero no se el significado de \"#{p.palabra.palabra}\"... "\
+                  tweet = "lo siento, pero la traducción de \"#{p.palabra.palabra}\" todavía no me la enseñan..."\
                     +"al final de cuentas sólo soy un robot"
 
                 dm = "DM @#{sname} #{tweet}"
