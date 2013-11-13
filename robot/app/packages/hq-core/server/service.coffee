@@ -114,6 +114,9 @@ HablemosQuechua =
               fechaHora: horarioR.toDate()
               status: Tweets.STATUS.PENDING
               rafagaIdx: i
+              esFrase: true
+              esRafaga: true
+              esPregunta: false
             rafaga.tweet = HablemosQuechua.replaceVars r, palabra
             tweets.push rafaga
             lastTime = horarioR.clone()
@@ -130,7 +133,9 @@ HablemosQuechua =
           palabraId: palabra._id
           fechaHora: horarioR.toDate()
           status: Tweets.STATUS.PENDING
+          esPregunta: true
           esRespuesta: true
+          esFrase: false
         respuesta.tweet = HablemosQuechua.replaceVars frase.respuesta, palabra
         tweets.push respuesta
         return tweets

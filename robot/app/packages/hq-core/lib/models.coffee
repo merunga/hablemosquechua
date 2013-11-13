@@ -8,11 +8,17 @@ Tweets = new Meteor.Collection2 'tweets',
       optional: true
     esFrase:
       type: Boolean
+    esRafaga:
+      type: Boolean
+      optional: true
     preguntaId:
       type: String
       optional: true
     esPregunta:
       type: Boolean
+    esRespuesta:
+      type: Boolean
+      optional: true
     rafagaIdx:
       type: Number
       optional: true
