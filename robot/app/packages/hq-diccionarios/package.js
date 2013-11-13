@@ -15,6 +15,10 @@ Package.on_use(function (api) {
   ], ['client','server'])
 
   api.add_files([
+    'lib/service.coffee'
+  ], 'server')
+
+  api.add_files([
     'server/models.coffee',
     'server/publish.coffee',
     'server/observe.coffee'
@@ -32,6 +36,7 @@ Package.on_use(function (api) {
   api.export([
     'Diccionarios',
     'PalabrasDiccionario',
-    'AggregationDiccionario'
+    'AggregationDiccionario',
+    'DiccionariosService'
   ], ['client', 'server'])
 });
