@@ -1,7 +1,8 @@
 TraduccionesService =
   looksLikeOne: (userId, tweet) ->
-    traduccion = null
+    pregunta = null
     palabra = null
+    traduccion = null
 
     ConjuntosTraducciones.find( {userId: userId} ).forEach (cp) ->
       variables = []
@@ -9,15 +10,15 @@ TraduccionesService =
         _(d.variables).each (v) ->
           variables.push v
 
-      Traducciones.find( conjuntoId: cp._id).forEach (p) ->
-        localAux = p.traduccion.replace /".*"/i, ""
+      Traducciones.find( conjuntoId: cp._id ).forEach (t) ->
+        localAux = t.pregunta.replace /".*"/i, ""
         externalAux = tweet.replace /".*"/i, ""
 
         if localAux is externalAux
-          traduccion = p
+          traduccion = t
           palabra =
             palabra: tweet.match( /"(.*)"/i, "" )[1]
-            placeholder: p.traduccion.match( /"(.*)"/i, "" )[1].replace('{','').replace('}','')
+            placeholder: t.pregunta.match( /"(.*)"/i, "" )[1].replace('{','').replace('}','')
     
     if traduccion
       return {
@@ -25,11 +26,3 @@ TraduccionesService =
         palabra: palabra
       }
     else return false
-
-
-      #_(variables).each (v) ->
-
-# Meteor.startup ->
-#   if p = TraduccionesService.looksLikeOne 'iJpvsKrPFrcDYpp78', 'como se dice "piedra"?' 
-#     if t = DiccionariosService.traducir 'iJpvsKrPFrcDYpp78', p.palabra.palabra, p.palabra.placeholder
-#       logger.info HablemosQuechua.replaceVars p.traduccion.respuesta, t

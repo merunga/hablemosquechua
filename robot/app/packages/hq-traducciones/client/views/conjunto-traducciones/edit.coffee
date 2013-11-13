@@ -17,7 +17,7 @@ Template.conjuntoTraduccionesEdit.rendered = ->
     traducciones = []
     Traducciones.find( conjuntoId: Session.get 'conjuntoTraduccionesId' ).forEach (p) ->
       traduccionesAux = [p._id]
-      traduccionesAux.push p.traduccion
+      traduccionesAux.push p.pregunta
       traduccionesAux.push p.respuesta
       traducciones.push traduccionesAux
 
@@ -28,7 +28,7 @@ Template.conjuntoTraduccionesEdit.rendered = ->
 
     $("#traducciones-table").handsontable
       columnSorting: true
-      colHeaders: ['_id', 'traduccion','respuesta']
+      colHeaders: ['_id', 'pregunta','respuesta']
       data: traducciones
       minSpareRows: 1
       colWidths: colWidths
@@ -67,7 +67,7 @@ Template.conjuntoTraduccionesEdit.events
           if data
             _(data).each (p, i) ->
               traduccion =
-                traduccion: p[1]
+                pregunta: p[1]
                 respuesta: p[2]
               if p[0]
                 id = p[0]

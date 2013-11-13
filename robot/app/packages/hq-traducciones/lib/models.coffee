@@ -18,7 +18,7 @@ Traducciones = new Meteor.Collection2 'traducciones',
       optional: true # Nos es opcional, pero coll2 no funciona con hooks
     conjuntoId:
       type: String
-    traduccion:
+    pregunta:
       type: String
     respuesta:
       type: String

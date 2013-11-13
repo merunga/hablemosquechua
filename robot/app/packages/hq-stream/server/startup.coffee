@@ -21,12 +21,13 @@ Meteor.startup ->
             streams[u._id] = twitter.stream('statuses/filter', { track: currUser })
             streams[u._id].on 'tweet',  Meteor.bindEnvironment( (tweet)->
               sname = tweet.user.screen_name
+              logger.info "Mention de @#{sname}: #{tweet}"
               potencialPregunta = tweet.text.replace("#{currUser} ",'')
-              if p = PreguntasService.looksLikeOne u._id, potencialPregunta
+              if p = TraduccionesService.looksLikeOne u._id, potencialPregunta
                 logger.info "Pregunta de @#{sname}: #{potencialPregunta}"
                 if t = DiccionariosService.traducir u._id, p.palabra.palabra, p.palabra.placeholder
                   logger.info "Palabra encontrada: #{p.palabra.palabra}"
-                  tweet = HablemosQuechua.replaceVars p.pregunta.respuesta, t
+                  tweet = HablemosQuechua.replaceVars p.traduccion.respuesta, t
                 else
                   logger.info "Palabra NO encontrada: #{p.palabra.palabra}"
                   tweet = "lo siento, pero la traducción de \"#{p.palabra.palabra}\" todavía no me la "\
@@ -35,18 +36,18 @@ Meteor.startup ->
                 dm = "DM @#{sname} #{tweet}"
                 twitter.post 'statuses/update', { status: dm }, Meteor.bindEnvironment( (err, response) ->
                   tweet =
-                    preguntaId: p.pregunta._id
+                    traduccionId: p.traduccion._id
                     fechaHora: new Date
                     userId: u._id
                   if t then tweet.palabraId = t._id else tweet.palabra = p.palabra.palabra
                   unless err
                     tweet.status = Tweets.STATUS.SUCCESS
                     tweet.twitterResponse = response
-                    logger.info "Enviando respuesta a pregunta de @#{sname}: #{potencialPregunta}"
+                    logger.info "Enviando respuesta a traduccion de @#{sname}: #{potencialPregunta}"
                   else
                     tweet.status = Tweets.STATUS.ERROR
                     tweet.twitterError = err
-                    logger.info "Error al enviar respuesta a pregunta de @#{sname}: #{potencialPregunta}"
+                    logger.info "Error al enviar respuesta a traduccion de @#{sname}: #{potencialPregunta}"
                   Tweets._collection.insert tweet
                 , (e) ->
                   logger.error 'Exception on bindEnvironment status/update'
@@ -63,7 +64,7 @@ Meteor.startup ->
               #       exec tweet.text
               #   else if sname is moderador
               #     retweet tweet.text
-              #   else if tweet.text like any preguntas?
+              #   else if tweet.text like any traducciones?
               #     termino, idioma = extraer(tweet.text)
               #     if termino in diccionario?
               #       then tweet respuesta
