@@ -75,6 +75,9 @@ Template.conjuntoFrasesEdit.events
                 Frases.update id, { $set: frase }, (err) ->
                   unless err
                     $( '#frases-table' ).handsontable( 'setDataAtCell', i, 0, id )
+                    if frase.rafaga
+                      _(rafaga).each (r, j) ->
+                        $( '#frases-table' ).handsontable( 'setDataAtCell', i, 2+j, r )
                     Router.go 'conjuntoFrasesEdit', _id: Session.get( 'conjuntoFrasesId' )
                   else
                     logger.error err

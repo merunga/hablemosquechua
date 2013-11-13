@@ -10,7 +10,7 @@ Template.conjuntoPreguntasEdit.rendered = ->
         search_contains: true
         width: $(s).data('width')
 
-  if conjFr = currConjuntoPreguntas()
+  if conjPr = currConjuntoPreguntas()
     cols =  ['_id']
     extraColsLength = 2
     
@@ -46,16 +46,17 @@ Template.conjuntoPreguntasEdit.helpers
 Template.conjuntoPreguntasEdit.events
   'submit #editConjuntoPreguntasForm': (e) ->
     e.preventDefault()
-    conjFr = $(e.currentTarget).formToJSON()
+    conjPr = $(e.currentTarget).formToJSON()
+    console.log conjPr
 
     unless currConjuntoPreguntas()
-      ConjuntosPreguntas.insert conjFr, (err, result) ->
+      ConjuntosPreguntas.insert conjPr, (err, result) ->
         unless err
           Router.go 'conjuntoPreguntasEdit', _id: result
         else
           logger.error err
     else
-      ConjuntosPreguntas.update Session.get( 'conjuntoPreguntasId' ), {$set: conjFr}, (err) ->
+      ConjuntosPreguntas.update Session.get( 'conjuntoPreguntasId' ), {$set: conjPr}, (err) ->
         if err
           logger.error err
         else
