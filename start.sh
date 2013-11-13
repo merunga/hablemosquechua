@@ -4,4 +4,4 @@ cd $1
 source "envvars-$app.sh"
 cd "app/.demeteorized"
 pwd=`pwd`
-forever -a -l "$pwd/../../logs/$app-main.log" -o "$pwd/../../logs/$app-out.log" -e "$pwd/../../logs/$app-err.log" start "$pwd/main.js"
+forever -a -l "$pwd/../../logs/main.log" -o "$pwd/../../logs/out.log" -e "$pwd/../../logs/err.log" start "$pwd/main.js"

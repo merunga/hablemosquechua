@@ -16,17 +16,21 @@ Meteor.startup ->
               access_token_secret: accessCredentials.accessTokenSecret
 
             currUser = "@#{accessCredentials.screenName}"
-            logger.info "Listening... #{currUser}"
+            logger.info "Soy #{currUser}, te escucho..."
 
             streams[u._id] = twitter.stream('statuses/filter', { track: currUser })
             streams[u._id].on 'tweet',  Meteor.bindEnvironment( (tweet)->
               sname = tweet.user.screen_name
-              if p = PreguntasService.looksLikeOne u._id, tweet.text.replace("#{currUser} ",'')
+              potencialPregunta = tweet.text.replace("#{currUser} ",'')
+              if p = PreguntasService.looksLikeOne u._id, potencialPregunta
+                logger.info "Pregunta de @#{sname}: #{potencialPregunta}"
                 if t = DiccionariosService.traducir u._id, p.palabra.palabra, p.palabra.placeholder
+                  logger.info "Palabra encontrada: #{p.palabra.palabra}"
                   tweet = HablemosQuechua.replaceVars p.pregunta.respuesta, t
                 else
-                  tweet = "lo siento, pero la traducción de \"#{p.palabra.palabra}\" todavía no me la enseñan..."\
-                    +"al final de cuentas sólo soy un robot"
+                  logger.info "Palabra NO encontrada: #{p.palabra.palabra}"
+                  tweet = "lo siento, pero la traducción de \"#{p.palabra.palabra}\" todavía no me la "\
+                    + "enseñan... al final de cuentas sólo soy un robot"
 
                 dm = "DM @#{sname} #{tweet}"
                 twitter.post 'statuses/update', { status: dm }, Meteor.bindEnvironment( (err, response) ->
@@ -38,10 +42,11 @@ Meteor.startup ->
                   unless err
                     tweet.status = Tweets.STATUS.SUCCESS
                     tweet.twitterResponse = response
+                    logger.info "Enviando respuesta a pregunta de @#{sname}: #{potencialPregunta}"
                   else
                     tweet.status = Tweets.STATUS.ERROR
                     tweet.twitterResponse = err
-                    logger.error "Error al enviar DM"
+                    logger.info "Error al enviar respuesta a pregunta de @#{sname}: #{potencialPregunta}"
                   Tweets._collection.insert tweet
                 , (e) ->
                   logger.error 'Exception on bindEnvironment status/update'
