@@ -37,6 +37,7 @@ Template.scheduleEdit.rendered = ->
     minsValidator = new RegExp "^#{minsRegExp}(\\s*,\\s*#{minsRegExp})*$"
 
     $("#entradas-table").handsontable
+      columnSorting: true
       data: entradas
       colHeaders: ['_id','dias semana','horas','minutos']
       columns: [

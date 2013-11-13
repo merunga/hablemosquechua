@@ -27,6 +27,7 @@ Template.conjuntoPreguntasEdit.rendered = ->
     colWidths = [100, 250, 250]
 
     $("#preguntas-table").handsontable
+      columnSorting: true
       colHeaders: ['_id', 'pregunta','respuesta']
       data: preguntas
       minSpareRows: 1

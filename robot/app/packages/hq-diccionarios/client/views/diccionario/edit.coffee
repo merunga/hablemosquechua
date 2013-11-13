@@ -21,6 +21,7 @@ Template.diccionarioEdit.rendered = ->
     colWidths = [100].concat _(dicc.variables).collect (v) -> 180
 
     $("#palabras-table").handsontable
+      columnSorting: true
       data: palabras
       colHeaders: cols
       minSpareRows: 1

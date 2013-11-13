@@ -27,6 +27,7 @@ Template.conjuntoTraduccionesEdit.rendered = ->
     colWidths = [100, 250, 250]
 
     $("#traducciones-table").handsontable
+      columnSorting: true
       colHeaders: ['_id', 'traduccion','respuesta']
       data: traducciones
       minSpareRows: 1

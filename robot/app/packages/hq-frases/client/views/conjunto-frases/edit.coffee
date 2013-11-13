@@ -29,6 +29,7 @@ Template.conjuntoFrasesEdit.rendered = ->
     colWidths = [100].concat _((num for num in [1..extraColsLength])).collect (v) -> 250
 
     $("#frases-table").handsontable
+      columnSorting: true
       colHeaders: ['_id', 'frase','rafagas ->']
       data: frases
       minSpareRows: 1
