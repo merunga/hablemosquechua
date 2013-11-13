@@ -70,10 +70,12 @@ Template.scheduleEdit.events
           Router.go 'scheduleEdit', _id: result
         else
           logger.error err
+          logger.error Schedules.namedContext("default").invalidKeys()
     else
       Schedules.update Session.get( 'scheduleId' ), {$set: sched}, (err) ->
         if err
           logger.error err
+          logger.error Schedules.namedContext("default").invalidKeys()
         else
           data = $( '#entradas-table' ).handsontable( 'getData' ).slice 0, -1
           if data
@@ -89,6 +91,7 @@ Template.scheduleEdit.events
                     $( '#entradas-table' ).handsontable( 'setDataAtCell', i, 0, id )
                   else
                     logger.error err
+                    logger.error EntradasSchedule.namedContext("default").invalidKeys()
               else
                 delete e._id
                 e.scheduleId = Session.get 'scheduleId'
@@ -97,6 +100,7 @@ Template.scheduleEdit.events
                     $( '#entradas-table' ).handsontable( 'setDataAtCell', i, 0, result )
                   else
                     logger.error err
+                    logger.error EntradasSchedule.namedContext("default").invalidKeys()
     
   'change #variables': (e, tmpl) ->
     logger.info e.currentTarget.value

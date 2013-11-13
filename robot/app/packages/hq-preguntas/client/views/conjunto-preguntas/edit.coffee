@@ -55,10 +55,12 @@ Template.conjuntoPreguntasEdit.events
           Router.go 'conjuntoPreguntasEdit', _id: result
         else
           logger.error err
+          logger.error ConjuntosPreguntas.namedContext("default").invalidKeys()
     else
       ConjuntosPreguntas.update Session.get( 'conjuntoPreguntasId' ), {$set: conjPr}, (err) ->
         if err
           logger.error err
+          logger.error ConjuntosPreguntas.namedContext("default").invalidKeys()
         else
           data = $( '#preguntas-table' ).handsontable( 'getData' ).slice 0, -1
           if data
@@ -74,6 +76,7 @@ Template.conjuntoPreguntasEdit.events
                     Router.go 'conjuntoPreguntasEdit', _id: Session.get( 'conjuntoPreguntasId' )
                   else
                     logger.error err
+                    logger.error Preguntas.namedContext("default").invalidKeys()
               else
                 pregunta.conjuntoId = Session.get 'conjuntoPreguntasId'
                 Preguntas.insert pregunta, (err, result) ->
@@ -82,6 +85,7 @@ Template.conjuntoPreguntasEdit.events
                     Router.go 'conjuntoPreguntasEdit', _id: Session.get( 'conjuntoPreguntasId' )
                   else
                     logger.error err
+                    logger.error Preguntas.namedContext("default").invalidKeys()
     
   'change #variables': (e, tmpl) ->
     logger.info e.currentTarget.value

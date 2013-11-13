@@ -47,10 +47,12 @@ Template.diccionarioEdit.events
           Router.go 'diccionarioEdit', _id: result
         else
           logger.error err
+          logger.error Diccionarios.namedContext("default").invalidKeys()
     else
       Diccionarios.update Session.get( 'diccionarioId' ), {$set: dicc}, (err) ->
         if err
           logger.error err
+          logger.error Diccionarios.namedContext("default").invalidKeys()
         else
           data = $( '#palabras-table' ).handsontable( 'getData' ).slice 0, -1
           if data
