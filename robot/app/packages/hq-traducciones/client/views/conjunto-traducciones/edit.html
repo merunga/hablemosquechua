@@ -1,0 +1,82 @@
+<template name="conjuntoTraduccionesEdit">
+  <form id="editConjuntoTraduccionesForm">
+    <div class="row-fluid">
+      <div class="span11 offset1 last"><h2>
+        {{#if currConjuntoTraducciones}}
+          Edición conjunto de traducciones {{currConjuntoTraducciones.nombre}}
+        {{else}}
+          Nuevo conjunto de traducciones
+        {{/if}}
+      </h2></div>
+    </div>
+
+    <div class="row-fluid">
+      <div class="span1 offset1">
+        <label class="control-label"
+          for="nombre">Nombre *</label>
+      </div>
+      <div class="span3 last">
+        <input type="text" name="nombre" id="nombre"
+          class="large" required
+          value="{{currConjuntoTraducciones.nombre}}"></input>
+      </div>
+    </div>
+
+    <div class="row-fluid">
+      <div class="span1 offset1">
+        <label class="control-label"
+          for="diccionarioIds">Diccionarios*</label>
+      </div>
+      <div class="span3 last">
+
+        {{#isolate}}
+          <select class="chosen" type="text"
+            name="diccionarioIds" id="{{random}}-diccionarioIds"
+            multiple="multiple" required
+            data-width="100%" data-asarray>
+          {{#each diccionarios}}
+            {{#if $in this._id currConjuntoTraducciones.diccionarioIds}}
+              <option value="{{this._id}}" selected="selected">{{this.nombre}}</option>
+            {{else}}
+              <option value="{{this._id}}">{{this.nombre}}</option>
+            {{/if}}
+          {{/each}}
+          </select>
+        {{/isolate}}
+      </div>
+    </div>
+
+    <div class="row-fluid">
+      <div class="span1 offset1">
+        <label class="control-label"
+          for="tags">Tags</label>
+      </div>
+      <div class="span3 last">
+        {{ tagsInput name="tags" value=currConjuntoTraducciones.tags }}
+      </div>
+    </div>
+
+    <div class="row-fluid">
+      <div class="span4 offset1">
+        <button type="submit">Guardar</button>
+      </div>
+    </div>
+
+    {{#if currConjuntoTraducciones}}
+      <div class="row-fluid">
+        <div class="span11 offset1 last"><h4>Traducciones</h4></div>
+      </div>
+      <div class="row-fluid">
+        <div class="span11 offset1 last">
+          <div id="traducciones-table"></div>
+        </div>
+      </div>
+
+      <div class="row-fluid">
+        <div class="span4 offset1">
+          <button type="submit">Guardar</button>
+        </div>
+      </div>
+    {{/if}}
+  </form>
+</template>

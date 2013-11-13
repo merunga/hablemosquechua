@@ -1,33 +1,31 @@
-<template name="scheduleList">
-  <h2>Schedules</h2>
-  {{#if schedules}}
+<template name="conjuntoTraduccionesList">
+  <h2>Conjuntos de Traducciones</h2>
+  {{#if conjuntosTraducciones}}
     <table class="table table-striped">
       <thead>
         <tr>
           <td class="span2">Nombre</td>
-          <td class="span2">Frases</td>
-          <td class="span2">Preguntas</td>
-          <td class="span2">Tags a usar</td>
+          <td class="span2">Diccionarios</td>
+          <td class="span2">Tags</td>
           <td class="span2">Fecha Creación</td>
-          <td class="span1"># entradas</td>
+          <td class="span1"># traducciones</td>
           <td class="span1">Acciones</td>
         </tr>
       </thead>
       <tbody>
-      {{#each schedules}}
+      {{#each conjuntosTraducciones}}
         <tr>
           <td class="span2">
-            <a href="{{pathFor 'scheduleEdit'}}"
+            <a href="{{pathFor 'conjuntoTraduccionesEdit'}}"
               >{{nombre}}</a>
           </td>
-          <td class="span2">{{arrToString conjuntosFrases}}</td>
-          <td class="span2">{{arrToString conjuntosPreguntas}}</td>
-          <td class="span2">{{arrToString tagsAUsar}}</td>
+          <td class="span2">{{arrToString diccionarios}}</td>
+          <td class="span2">{{arrToString tags}}</td>
           <td class="span2">{{moment createdAt 'DD/MM/YYYY hh:mm a'}}</td>
-          <td class="span1">{{countEntradas}}</td>
+          <td class="span1">{{countTraducciones}}</td>
           <td class="span1 acciones">
-            <a href="{{pathFor 'scheduleEdit'}}"><i class="icon-pencil"></i></a>
-            {{#if $eq countEntradas 0}}
+            <a href="{{pathFor 'conjuntoTraduccionesEdit'}}"><i class="icon-pencil"></i></a>
+            {{#if $eq countTraducciones 0}}
               <a href="#" alt="eliminar" title="eliminar"
                 class="eliminar"><i class="icon-trash"></i></a>
             {{/if}}
@@ -39,14 +37,14 @@
         <tr>
           <td class="span7" colspan="3"></td>
           <td class="span2">Total:</td>
-          <td class="span1">{{countEntradasTotal}}</td>
+          <td class="span1">{{countTraduccionesTotal}}</td>
           <td class="span1"></td>
         </tr>
       </tfoot>
     </table>
   {{else}}
-    <h3>No hay schedules
-      <small><a href="{{pathFor 'scheduleCreate'}}">crear nuevo</a>
+    <h3>No hay conjuntos de traducciones
+      <small><a href="{{pathFor 'conjuntoTraduccionesCreate'}}">crear nuevo</a>
     </h3>
   {{/if}}
 </template>

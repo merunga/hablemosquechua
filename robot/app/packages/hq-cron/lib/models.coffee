@@ -8,6 +8,9 @@ Schedules = new Meteor.Collection2 'schedules',
     conjuntoFrasesIds:
       type: [String]
       optional: true
+    conjuntoPreguntasIds:
+      type: [String]
+      optional: true
     tagsAUsar:
       type: [String]
       optional: true
@@ -39,5 +42,8 @@ AggregationSchedule = new Meteor.Collection2 'aggregationSchedule',
     countEntradas:
       type: Number
     conjuntosFrases:
+      type: [String]
+      optional: true
+    conjuntosPreguntas:
       type: [String]
       optional: true

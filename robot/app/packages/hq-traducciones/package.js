@@ -1,10 +1,10 @@
 Package.describe({
-  summary: 'programador de frases de @hablemosquechua'
+  summary: 'traducciones solicitadas por los usuarios a @hablemosquechua'
 });
 
 Package.on_use(function (api) {
   api.use(['standard-app-packages','coffeescript','iron-router',
-    'collection-hooks','hq-frases','hq-preguntas','pince']);
+    'collection-hooks','hq-diccionarios','pince']);
   api.use(['bootstrap','stylus','utils','tokenfield'],'client');
   api.use('hq-tags',['client','server'],{unordered:true})
 
@@ -14,23 +14,28 @@ Package.on_use(function (api) {
   ], ['client','server'])
 
   api.add_files([
+    'lib/service.coffee'
+  ], 'server')
+
+  api.add_files([
     'server/models.coffee',
     'server/publish.coffee',
     'server/observe.coffee'
   ], 'server')
 
   api.add_files([
-    'client/cron.styl',
+    'client/traducciones.styl',
     'client/router.coffee',
-    'client/views/schedule/edit.html',
-    'client/views/schedule/edit.coffee',
-    'client/views/schedule/list.html',
-    'client/views/schedule/list.coffee'
+    'client/views/conjunto-traducciones/edit.html',
+    'client/views/conjunto-traducciones/edit.coffee',
+    'client/views/conjunto-traducciones/list.html',
+    'client/views/conjunto-traducciones/list.coffee'
   ], 'client');
 
   api.export([
-    'Schedules',
-    'EntradasSchedule',
-    'AggregationSchedule',
+    'ConjuntosTraducciones',
+    'Traducciones',
+    'AggregationConjuntoTraducciones',
+    'TraduccionesService'
   ], ['client', 'server'])
 });

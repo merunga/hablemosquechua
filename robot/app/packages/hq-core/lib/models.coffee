@@ -5,6 +5,10 @@ Tweets = new Meteor.Collection2 'tweets',
       optional: true
     fraseId:
       type: String
+      optional: true
+    preguntaId:
+      type: String
+      optional: true
     rafagaIdx:
       type: Number
       optional: true

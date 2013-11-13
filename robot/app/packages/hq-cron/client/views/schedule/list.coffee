@@ -5,6 +5,8 @@ Template.scheduleList.helpers
     else false
   conjuntosFrases: ->
     AggregationSchedule.findOne( scheduleId: @_id )?.conjuntosFrases
+  conjuntosPreguntas: ->
+    AggregationSchedule.findOne( scheduleId: @_id )?.conjuntosPreguntas
   countEntradas: ->
     AggregationSchedule.findOne( scheduleId: @_id )?.countEntradas
   countEntradasTotal: ->

@@ -9,8 +9,3 @@ Meteor.publish 'conjuntosPreguntas', ->
     ConjuntosPreguntas.find( { userId: @userId }, { sort: { createdAt: -1 } } ),
     AggregationConjuntoPreguntas.find userId: @userId
   ]
-
-Meteor.publish 'conjuntosPreguntasAutocomplete', ->
-  ConjuntosPreguntas.find userId: @userId,
-    sort: { nombre: 1 }
-    fields: { nombre: 1 }

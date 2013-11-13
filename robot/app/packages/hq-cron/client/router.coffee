@@ -7,6 +7,7 @@ Router.map ->
     waitOn: ->
       [
         Subscriptions.begin 'conjuntosFrasesAutocomplete'
+        Subscriptions.begin 'conjuntosPreguntasAutocomplete'
         Subscriptions.begin 'tags'
       ]
 
@@ -16,6 +17,7 @@ Router.map ->
       [
         Subscriptions.begin 'schedule', @params._id
         Subscriptions.begin 'conjuntosFrasesAutocomplete'
+        Subscriptions.begin 'conjuntosPreguntasAutocomplete'
         Subscriptions.begin 'tags'
       ]
     after: ->

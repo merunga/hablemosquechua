@@ -58,6 +58,7 @@ Template.scheduleEdit.rendered = ->
 Template.scheduleEdit.helpers
   currSchedule: -> currSchedule()
   conjuntosFrases: -> ConjuntosFrases.find()
+  conjuntosPreguntas: -> ConjuntosPreguntas.find()
 
 Template.scheduleEdit.events
   'submit #editScheduleForm': (e) ->

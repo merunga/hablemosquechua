@@ -14,3 +14,8 @@ Meteor.publish 'conjuntosFrasesAutocomplete', ->
   ConjuntosFrases.find userId: @userId,
     sort: { nombre: 1 }
     fields: { nombre: 1 }
+
+Meteor.publish 'conjuntosPreguntasAutocomplete', ->
+  ConjuntosPreguntas.find userId: @userId,
+    sort: { nombre: 1 }
+    fields: { nombre: 1 }

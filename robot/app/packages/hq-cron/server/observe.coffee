@@ -7,11 +7,18 @@ updateAggregationSchedule = (userId, scheduleId) ->
       conjuntosFrases.push cf.nombre
   conjuntosFrases = null if _(conjuntosFrases).isEmpty()
 
+  conjuntosPreguntas = []
+  if conjunto.conjuntoPreguntasIds
+    ConjuntosPreguntas.find( _id: {$in: conjunto.conjuntoPreguntasIds} ).forEach (cp) ->
+      conjuntosPreguntas.push cp.nombre
+  conjuntosPreguntas = null if _(conjuntosPreguntas).isEmpty()
+
   aggr =
     scheduleId: scheduleId
     userId: userId
     countEntradas: EntradasSchedule.find( scheduleId: scheduleId ).count() or 0
     conjuntosFrases: conjuntosFrases
+    conjuntosPreguntas: conjuntosPreguntas
 
   if aggrSched = AggregationSchedule.findOne( scheduleId: scheduleId )
     aggrSchedId = aggrSched._id
@@ -25,7 +32,6 @@ updateAggregationSchedule = (userId, scheduleId) ->
         logger.error e
         logger.error AggregationSchedule.namedContext("default").invalidKeys()
   else
-    _(aggrSched).isEqual aggr
     try
       AggregationSchedule.insert aggr
     catch e

@@ -54,6 +54,16 @@ HablemosQuechua =
         ).fetch()
       frases
 
+    getPreguntas: (scheduleIds) ->
+      preguntas = []
+      conjuntoPreguntasIds = Schedules.findOne( _id: { $in: scheduleIds } ).conjuntoPreguntasIds
+      ConjuntosPreguntas.find( _id: { $in: conjuntoPreguntasIds } ).forEach (cf) ->
+        preguntas = _.union preguntas, Preguntas.find(
+          { conjuntoId: cf._id },
+          { fields: { pregunta: 1, respuesta: 1 } }
+        ).fetch()
+      preguntas
+
     getPalabras: (scheduleIds) ->
       palabras = []
       conjuntoFrasesIds = Schedules.findOne( _id: { $in: scheduleIds } ).conjuntoFrasesIds
@@ -78,27 +88,53 @@ HablemosQuechua =
 
   newTweet: (palabra, frase, horario) ->
     tweet =
-      fraseId: frase._id
       palabraId: palabra._id
       fechaHora: horario
       status: Tweets.STATUS.PENDING
 
-    fraseStr = HablemosQuechua.replaceVars frase.frase, palabra
+    esFrase = frase.frase?
+    esPregunta = frase.pregunta?
+
+    texto = if esFrase then frase.frase else frase.pregunta
+
+    fraseStr = HablemosQuechua.replaceVars texto, palabra
     if fraseStr.length <= 140
       tweet.tweet = fraseStr
-      if frase.rafaga and not _( _(frase.rafaga).without null, '' ).isEmpty()
+      if esFrase
+        tweet.fraseId = frase._id
+        tweet.esFrase = true
+        if frase.rafaga and not _( _(frase.rafaga).without null, '' ).isEmpty()
+          tweets = [tweet]
+          lastTime = moment horario
+          _( _(frase.rafaga).without null, '' ).each (r, i) ->
+            horarioR = lastTime.clone()
+            horarioR.add 'minutes', 3
+            rafaga =
+              fraseId: frase._id
+              palabraId: palabra._id
+              fechaHora: horarioR.toDate()
+              status: Tweets.STATUS.PENDING
+              rafagaIdx: i
+            rafaga.tweet = HablemosQuechua.replaceVars r, palabra
+            tweets.push rafaga
+            lastTime = horarioR.clone()
+          return tweets
+        else
+          return tweet
+      else if esPregunta
+        tweet.preguntaId = frase._id
+        tweet.esPregunta = true
         tweets = [tweet]
-        _( _(frase.rafaga).without null, '' ).each (r, i) ->
-          horarioR = moment horario
-          horarioR.add 'minutes', 3
-          rafaga =
-            fraseId: frase._id
-            palabraId: palabra._id
-            fechaHora: horarioR.toDate()
-            status: Tweets.STATUS.PENDING
-            rafagaIdx: i
-          rafaga.tweet = HablemosQuechua.replaceVars r, palabra
-          tweets.push rafaga
+        horarioR = moment horario
+        horarioR.add 'minutes', 3
+        respuesta =
+          preguntaId: frase._id
+          palabraId: palabra._id
+          fechaHora: horarioR.toDate()
+          status: Tweets.STATUS.PENDING
+          esRespuesta: true
+        respuesta.tweet = HablemosQuechua.replaceVars frase.respuesta, palabra
+        tweets.push respuesta
         return tweets
-      else
-        return tweet
+
+

@@ -13,18 +13,24 @@ Meteor.methods
   'programarTweets': (rules) ->
     palabras = utils.getPalabras rules.scheduleIds
     frases   = utils.getFrases rules.scheduleIds
+    preguntas  = utils.getPreguntas rules.scheduleIds
     horarios = utils.getHorarios rules
+    plantillas = _(frases).union preguntas
 
     _( horarios ).each (h) ->
       p = utils.getOne palabras
-      f = utils.getOne frases
+      f = utils.getOne plantillas
       while not( tweet = HablemosQuechua.newTweet p, f, h )
         p = utils.getOne palabras
-        f = utils.getOne frases
+        f = utils.getOne plantillas
         tweet = HablemosQuechua.newTweet p, f, h
 
       unless _(tweet).isArray()
         Tweets.insert tweet
       else
         _(tweet).each (t) ->
-          Tweets.insert t
+          try
+            Tweets.insert t
+          catch e
+            logger.error e
+            logger.error Tweets.namedContext("default").invalidKeys()
