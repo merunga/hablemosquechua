@@ -37,7 +37,6 @@ HablemosQuechua =
                   tweetTime = moment dia
                   tweetTime.hour hora
                   tweetTime.minutes mins
-                  tweetTime.utc() # universal time
                   tweetTime = moment tweetTime.format( 'YYYY-MM-DD HH:mm:ss.SSS' )
                   tweetTime.seconds 0
                   tweetTime.milliseconds 0

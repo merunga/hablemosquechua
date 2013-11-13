@@ -9,7 +9,6 @@ Meteor.startup ->
         date = moment()
         date.seconds 0
         date.milliseconds 0
-        date.utc() # universal time
         date = moment date.format( 'YYYY-MM-DD HH:mm:ss.SSS' )
         fechaHora = date.toDate()
 
