@@ -34,12 +34,11 @@ Meteor.startup ->
                     preguntaId: p.pregunta._id
                     fechaHora: new Date
                     userId: u._id
+                  if t then tweet.palabraId = t._id else tweet.palabra = p.palabra.palabra
                   unless err
-                    tweet.palabraId = t._id
                     tweet.status = Tweets.STATUS.SUCCESS
                     tweet.twitterResponse = response
                   else
-                    tweet.palabraId = p.palabra.palabra
                     tweet.status = Tweets.STATUS.ERROR
                     tweet.twitterResponse = err
                     logger.error "Error al enviar DM"
