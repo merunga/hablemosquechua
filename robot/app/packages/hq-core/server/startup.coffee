@@ -2,7 +2,6 @@ Twit = Npm.require 'twit'
 
 Meteor.startup ->
   serviceCredentials = Accounts.loginServiceConfiguration.findOne service: 'twitter'
-
   Deps.autorun ->
     if serviceCredentials
       TweetCron = new Cron()
