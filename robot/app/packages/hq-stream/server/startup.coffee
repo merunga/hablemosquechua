@@ -24,25 +24,30 @@ Meteor.startup ->
               if p = PreguntasService.looksLikeOne u._id, tweet.text.replace("#{currUser} ",'')
                 if t = DiccionariosService.traducir u._id, p.palabra.palabra, p.palabra.placeholder
                   tweet = HablemosQuechua.replaceVars p.pregunta.respuesta, t
-                  dm = "DM @#{sname} #{tweet}"
-                  twitter.post 'statuses/update', { status: dm }, Meteor.bindEnvironment( (err, response) ->
-                    tweet =
-                      preguntaId: p.pregunta._id
-                      palabraId: t._id
-                      fechaHora: new Date
-                      userId: u._id
-                    unless err
-                      tweet.status = Tweets.STATUS.SUCCESS
-                      tweet.twitterResponse = response
-                    else
-                      tweet.status = Tweets.STATUS.ERROR
-                      tweet.twitterResponse = err
-                      logger.error "Error al enviar DM"
-                    Tweets._collection.insert tweet
-                  , (e) ->
-                    logger.error 'Exception on bindEnvironment status/update'
-                    logger.error e
-                  )
+                else
+                  tweet = "lo siento, pero no se el significado de \"#{p.palabra.palabra}\"... "\
+                    +"al final de cuentas sólo soy un robot"
+
+                dm = "DM @#{sname} #{tweet}"
+                twitter.post 'statuses/update', { status: dm }, Meteor.bindEnvironment( (err, response) ->
+                  tweet =
+                    preguntaId: p.pregunta._id
+                    fechaHora: new Date
+                    userId: u._id
+                  unless err
+                    tweet.palabraId = t._id
+                    tweet.status = Tweets.STATUS.SUCCESS
+                    tweet.twitterResponse = response
+                  else
+                    tweet.palabraId = p.palabra.palabra
+                    tweet.status = Tweets.STATUS.ERROR
+                    tweet.twitterResponse = err
+                    logger.error "Error al enviar DM"
+                  Tweets._collection.insert tweet
+                , (e) ->
+                  logger.error 'Exception on bindEnvironment status/update'
+                  logger.error e
+                )
             , (e) ->
               logger.error 'Exception on bindEnvironment statuses/filter'
               logger.error e
