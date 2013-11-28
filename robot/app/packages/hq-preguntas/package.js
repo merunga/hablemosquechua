@@ -36,6 +36,7 @@ Package.on_use(function (api) {
     'ConjuntosPreguntas',
     'Preguntas',
     'AggregationConjuntoPreguntas',
+    'RespuestasCorrectas'
 //    'PreguntasService'
   ], ['client', 'server'])
 });

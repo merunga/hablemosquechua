@@ -34,3 +34,14 @@ AggregationConjuntoPreguntas = new Meteor.Collection2 'aggregationConjutoPregunt
       type: Number
     diccionarios:
       type: [String]
+
+RespuestasCorrectas = new Meteor.Collection2 'respuestasCorrectas',
+  schema:
+    userRespuesta:
+      type: String
+    fechaHora:
+      type: String
+    palabraId:
+      type: String
+    variable:
+      type: String

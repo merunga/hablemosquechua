@@ -34,3 +34,14 @@ AggregationConjuntoTraducciones = new Meteor.Collection2 'aggregationConjutoTrad
       type: Number
     diccionarios:
       type: [String]
+
+TraduccionesSolicitadas = new Meteor.Collection2 'traduccionesSolicitadas',
+  schema:
+    userId:
+      type: String
+      optional: true # Nos es opcional, pero coll2 no funciona con hooks
+    tweetRespuestaId:
+      type: String
+      optional: true
+    mentionId:
+      type: String

@@ -36,6 +36,7 @@ Package.on_use(function (api) {
     'ConjuntosTraducciones',
     'Traducciones',
     'AggregationConjuntoTraducciones',
+    'TraduccionesSolicitadas',
     'TraduccionesService'
   ], ['client', 'server'])
 });

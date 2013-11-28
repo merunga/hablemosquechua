@@ -19,8 +19,8 @@
       },
       "collection2": {
         "git": "https://github.com/aldeed/meteor-collection2.git",
-        "tag": "v0.2.11",
-        "commit": "34ea61718c8826dfa9236222cec6c097bd41ae6b"
+        "tag": "v0.2.14",
+        "commit": "46eeef2c8786f55e3ff3368c99ac0672600bc734"
       },
       "roles": {
         "git": "https://github.com/alanning/meteor-roles.git",
@@ -54,8 +54,8 @@
       },
       "simple-schema": {
         "git": "https://github.com/aldeed/meteor-simple-schema.git",
-        "tag": "v0.2.16",
-        "commit": "fae2b014ffc26dfccd3aab38e45d60dda34fd03c"
+        "tag": "v0.2.18",
+        "commit": "53d0bbf77275ae2035643af4a268b7649af42b28"
       }
     }
   }

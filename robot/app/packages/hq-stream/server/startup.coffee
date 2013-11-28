@@ -20,16 +20,10 @@ Meteor.startup ->
 
             streams[u._id] = twitter.stream('statuses/filter', { track: currUser })
             streams[u._id].on 'tweet',  Meteor.bindEnvironment( ( tweet )->
-              if StreamService.ultimoTweetEsPregunta( u )
-                if StreamService.respuestaCorrecta( u, tweet )
-                  a = 'b'
-              else if traduccion = StreamService.esSolicitudDeTraduccion( u, tweet )
-                tweetRespuesta = StreamService.getRespuesta u, traduccion
-                console.log u
-                StreamService.enviarTraduccion twitter, u, tweet.user, tweet.text, tweetRespuesta, traduccion
+              StreamService.dealWithMention twitter, u, tweet
             , (e) ->
               logger.error 'Exception on bindEnvironment statuses/filter'
-              logger.trace e
+              logger.error e
             )
 
               # if sname isnt accessCredentials.screenName

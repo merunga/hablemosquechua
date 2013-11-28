@@ -5,9 +5,30 @@ potencialPregunta =
 
 StreamService =
   ultimoTweetEsPregunta: (user) ->
+    t = Tweets.findOne( {status:'success'}, { sort: { fechaHora: -1 }, limit: 1 } )
+    return if t.esPregunta then t else false
+
+  respuestaCorrecta: (user, tweetRecibido, ultimoTweet ) ->
+    palabraRespuestaUser = tweetRecibido.match( /.*\"(.*)\".*/ )?[1]
+    if palabraRespuestaUser and palabra = PalabrasDiccionario.findOne ultimoTweet.palabraId
+      if diccionario = Diccionarios.findOne palabra.diccionarioId
+        for varname in diccionario.variables
+          if palabra[varname].match new RegExp( palabraRespuestaUser, 'i' )
+            logger.info "Respuesta correcta: #{palabraRespuestaUser}"
+            return varname
+    logger.info "Respuesta incorrecta: #{palabraRespuestaUser}"
     return false
 
-  respuestaCorrecta: (user, tweetRecibido ) ->
+  registrarRespuestaCorrecta: ( robotUser, userRespuesta, ultimoTweet, variable ) ->
+    try
+      RespuestasCorrectas.insert
+        userRespuesta: userRespuesta
+        fechaHora: new Date()
+        palabraId: ultimoTweet.palabraId
+        variable: variable
+    catch e
+      logger.error 'RespuestasCorrectas.insert '+e
+      logger.error RespuestasCorrectas.namedContext('default').invalidKeys()
 
   esSolicitudDeTraduccion: ( user, tweetRecibido ) ->
     sname = tweetRecibido.user.screen_name
@@ -29,19 +50,18 @@ StreamService =
         + "enseñan... al final de cuentas sólo soy un robot"
     return tweet
 
-  enviarTraduccion: (twitter, robotUser, twitterUser, tweetPregunta, tweetRespuesta, traduccion)->
+  enviarTraduccion: (twitter, robotUser, twitterUser, tweetPregunta, tweetRespuesta, traduccion, mentionId)->
     u = twitterUser
     sname = u.screen_name
     t = traduccion
     dm = "DM @#{sname} #{tweetRespuesta}"
     twitter.post 'statuses/update', { status: dm }, Meteor.bindEnvironment( (err, response) ->
-      console.log '-------'
-      console.log robotUser._id
       tweet =
         traduccionId: t.traduccion._id
-        fechaHora: new Date
+        fechaHora: new Date()
         userId: robotUser._id
         userPregunta: sname
+        tweet: dm
       if t then tweet.palabraId = t.traduccion._id else tweet.palabra = traduccion.palabra.palabra
       unless err
         tweet.status = Tweets.STATUS.SUCCESS
@@ -52,9 +72,39 @@ StreamService =
         tweet.twitterError = err
         logger.error "Error al enviar respuesta a traduccion de @#{sname}: #{tweetPregunta}"
         logger.error err
-      Tweets._collection.insert tweet
+
+      tweetId = Tweets._collection.insert tweet
+
+      try
+        TraduccionesSolicitadas.insert
+          userId: robotUser._id
+          mentionId: mentionId
+          tweetRespuestaId: tweetId
+      catch e
+        logger.error 'TraduccionesSolicitadas.insert '+e
+        logger.error TraduccionesSolicitadas.namedContext('default').invalidKeys()
+
     , (e) ->
       logger.error 'Exception on bindEnvironment status/update'
       logger.error e
     )
     
+  dealWithMention: (twitter, robotUser, tweet) ->
+    mention =
+      userId: robotUser._id
+      tweet: tweet.text
+      twitterUser: tweet.user.screen_name
+      tweetObject: tweet
+    try
+      mentionId = Mentions.insert mention
+    catch e
+      logger.error 'Mentions.insert '+e
+      logger.error Mentions.namedContext('default').invalidKeys()
+
+    if traduccion = StreamService.esSolicitudDeTraduccion robotUser, tweet
+      tweetRespuesta = StreamService.getRespuesta robotUser, traduccion
+      StreamService.enviarTraduccion twitter, robotUser, tweet.user, tweet.text, \
+        tweetRespuesta, traduccion, mentionId
+    else if ultimoTweet = StreamService.ultimoTweetEsPregunta( robotUser )
+      if rc = StreamService.respuestaCorrecta( robotUser, tweet.text, ultimoTweet )
+        StreamService.registrarRespuestaCorrecta( robotUser, tweet.user.screen_name, ultimoTweet, rc )
