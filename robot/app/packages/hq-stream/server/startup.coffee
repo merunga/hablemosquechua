@@ -21,7 +21,7 @@ Meteor.startup ->
             streams[u._id] = twitter.stream('statuses/filter', { track: currUser })
             streams[u._id].on 'tweet',  Meteor.bindEnvironment( (tweet)->
               sname = tweet.user.screen_name
-              logger.info "Mention de @#{sname}: #{tweet}"
+              logger.info "Mention de @#{sname}: #{tweet.text}"
               potencialPregunta = tweet.text.replace("#{currUser} ",'')
               if p = TraduccionesService.looksLikeOne u._id, potencialPregunta
                 logger.info "Pregunta de @#{sname}: #{potencialPregunta}"
@@ -47,7 +47,7 @@ Meteor.startup ->
                   else
                     tweet.status = Tweets.STATUS.ERROR
                     tweet.twitterError = err
-                    logger.info "Error al enviar respuesta a traduccion de @#{sname}: #{potencialPregunta}"
+                    logger.error "Error al enviar respuesta a traduccion de @#{sname}: #{potencialPregunta}"
                   Tweets._collection.insert tweet
                 , (e) ->
                   logger.error 'Exception on bindEnvironment status/update'
