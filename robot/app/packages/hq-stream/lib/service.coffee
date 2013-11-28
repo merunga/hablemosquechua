@@ -9,14 +9,13 @@ StreamService =
     return if t.esPregunta then t else false
 
   respuestaCorrecta: (user, tweetRecibido, ultimoTweet ) ->
-    palabraRespuestaUser = tweetRecibido.match( /.*\"(.*)\".*/ )?[1]
-    if palabraRespuestaUser and palabra = PalabrasDiccionario.findOne ultimoTweet.palabraId
+    if palabra = PalabrasDiccionario.findOne ultimoTweet.palabraId
       if diccionario = Diccionarios.findOne palabra.diccionarioId
         for varname in diccionario.variables
-          if palabra[varname].match new RegExp( palabraRespuestaUser, 'i' )
-            logger.info "Respuesta correcta: #{palabraRespuestaUser}"
+          if tweetRecibido.match new RegExp ".*#{palabra[varname]}.*", 'i'
+            logger.info "Respuesta correcta: #{palabra[varname]}"
             return varname
-    logger.info "Respuesta incorrecta: #{palabraRespuestaUser}"
+    logger.info "Respuesta incorrecta: #{tweetRecibido}"
     return false
 
   registrarRespuestaCorrecta: ( robotUser, userRespuesta, ultimoTweet, variable ) ->

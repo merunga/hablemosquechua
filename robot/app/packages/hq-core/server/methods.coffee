@@ -15,14 +15,14 @@ Meteor.methods
     frases   = utils.getFrases rules.scheduleIds
     preguntas  = utils.getPreguntas rules.scheduleIds
     horarios = utils.getHorarios rules
-    plantillas = _(frases).union preguntas
+    plantillas = _(frases)?.union preguntas
 
     _( horarios ).each (h) ->
       p = utils.getOne palabras
-      f = utils.getOne plantillas
+      f = if plantillas then utils.getOne( plantillas ) else []
       while not( tweet = HablemosQuechua.newTweet p, f, h )
         p = utils.getOne palabras
-        f = utils.getOne plantillas
+        f = if plantillas then utils.getOne( plantillas ) else []
         tweet = HablemosQuechua.newTweet p, f, h
 
       unless _(tweet).isArray()

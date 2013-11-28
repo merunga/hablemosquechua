@@ -46,33 +46,40 @@ HablemosQuechua =
 
     getFrases: (scheduleIds) ->
       frases = []
-      conjuntoFrasesIds = Schedules.findOne( _id: { $in: scheduleIds } ).conjuntoFrasesIds
-      ConjuntosFrases.find( _id: { $in: conjuntoFrasesIds } ).forEach (cf) ->
-        frases = _.union frases, Frases.find(
-          { conjuntoId: cf._id },
-          { fields: { frase: 1, rafaga: 1 } }
-        ).fetch()
+      if conjuntoFrasesIds = Schedules.findOne( _id: { $in: scheduleIds } ).conjuntoFrasesIds
+        ConjuntosFrases.find( _id: { $in: conjuntoFrasesIds } ).forEach (cf) ->
+          frases = _.union frases, Frases.find(
+            { conjuntoId: cf._id },
+            { fields: { frase: 1, rafaga: 1 } }
+          ).fetch()
       frases
 
     getPreguntas: (scheduleIds) ->
       preguntas = []
-      conjuntoPreguntasIds = Schedules.findOne( _id: { $in: scheduleIds } ).conjuntoPreguntasIds
-      ConjuntosPreguntas.find( _id: { $in: conjuntoPreguntasIds } ).forEach (cf) ->
-        preguntas = _.union preguntas, Preguntas.find(
-          { conjuntoId: cf._id },
-          { fields: { pregunta: 1, respuesta: 1 } }
-        ).fetch()
+      if conjuntoPreguntasIds = Schedules.findOne( _id: { $in: scheduleIds } ).conjuntoPreguntasIds
+        ConjuntosPreguntas.find( _id: { $in: conjuntoPreguntasIds } ).forEach (cf) ->
+          preguntas = _.union preguntas, Preguntas.find(
+            { conjuntoId: cf._id },
+            { fields: { pregunta: 1, respuesta: 1, felicitacion: 1, respuestaIncorrecta: 1, delayRespuesta: 1 } }
+          ).fetch()
       preguntas
 
     getPalabras: (scheduleIds) ->
       palabras = []
-      conjuntoFrasesIds = Schedules.findOne( _id: { $in: scheduleIds } ).conjuntoFrasesIds
-      ConjuntosFrases.find( _id: { $in: conjuntoFrasesIds } ).forEach (cf) ->
-        Diccionarios.find( _id: { $in: cf.diccionarioIds } ).forEach (d) ->
-          palabras = _.union palabras, PalabrasDiccionario.find(
-            { diccionarioId: d._id },
-            { fields: { createdAt: 0, userId: 0, diccionarioId: 0 } }
-          ).fetch()
+      if conjuntoFrasesIds = Schedules.findOne( _id: { $in: scheduleIds } ).conjuntoFrasesIds
+        ConjuntosFrases.find( _id: { $in: conjuntoFrasesIds } ).forEach (cf) ->
+          Diccionarios.find( _id: { $in: cf.diccionarioIds } ).forEach (d) ->
+            palabras = _.union palabras, PalabrasDiccionario.find(
+              { diccionarioId: d._id },
+              { fields: { createdAt: 0, userId: 0, diccionarioId: 0 } }
+            ).fetch()
+      if conjuntoPreguntasIds = Schedules.findOne( _id: { $in: scheduleIds } ).conjuntoPreguntasIds
+        ConjuntosPreguntas.find( _id: { $in: conjuntoPreguntasIds } ).forEach (cp) ->
+          Diccionarios.find( _id: { $in: cp.diccionarioIds } ).forEach (d) ->
+            palabras = _.union palabras, PalabrasDiccionario.find(
+              { diccionarioId: d._id },
+              { fields: { createdAt: 0, userId: 0, diccionarioId: 0 } }
+            ).fetch()
       palabras
 
     getOne: (array) ->
@@ -127,7 +134,7 @@ HablemosQuechua =
         tweet.preguntaId = frase._id
         tweets = [tweet]
         horarioR = moment horario
-        horarioR.add 'minutes', 3
+        horarioR.add 'minutes', (frase.delayRespuesta or 3)
         respuesta =
           preguntaId: frase._id
           palabraId: palabra._id

@@ -22,6 +22,14 @@ Preguntas = new Meteor.Collection2 'preguntas',
       type: String
     respuesta:
       type: String
+    felicitacion:
+      type: String
+      optional: true
+    respuestaIncorrecta:
+      type: String
+      optional: true
+    delayRespuesta:
+      type: Number
 
 AggregationConjuntoPreguntas = new Meteor.Collection2 'aggregationConjutoPreguntas',
   schema:
@@ -40,7 +48,7 @@ RespuestasCorrectas = new Meteor.Collection2 'respuestasCorrectas',
     userRespuesta:
       type: String
     fechaHora:
-      type: String
+      type: Date
     palabraId:
       type: String
     variable:

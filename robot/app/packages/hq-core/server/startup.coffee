@@ -38,6 +38,30 @@ Meteor.startup ->
                       $set:
                         status: Tweets.STATUS.SUCCESS
                         twitterResponse: response
+                    if t.esRespuesta
+                      palabra = PalabrasDiccionario.findOne t.palabraId
+                      pregunta = Preguntas.findOne t.preguntaId
+                      if pregunta.felicitacion
+                        logger.info 'Buscando usuarios a felicitar'
+                        users = ""
+                        fechaDesde = moment t.fechaHora
+                        fechaDesde.subtract 'minutes', ( pregunta.delayRespuesta or 3 )
+
+                        respuestasCorrectas = RespuestasCorrectas.find(
+                          fechaHora: { $gt: fechaDesde.toDate() }
+                          palabraId: t.palabraId
+                        ).forEach (rc) ->
+                          logger.info 'Respuesta correcta por '+rc
+                          users += "@#{rc.userRespuesta} "
+
+                        if users
+                          felicitacion = pregunta.felicitacion.replace '{users}', users
+                          felicitacion = HablemosQuechua.replaceVars felicitacion, palabra
+                          twitter.post 'statuses/update', { status: felicitacion }, (err2, response2) ->
+                            if err2
+                              logger.error err2
+                            else if response
+                              logger.info response2
                 , (e) ->
                   logger.error 'Exception on bindEnvironment'
                   logger.error e

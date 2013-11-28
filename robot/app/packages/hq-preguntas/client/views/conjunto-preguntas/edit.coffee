@@ -19,16 +19,19 @@ Template.conjuntoPreguntasEdit.rendered = ->
       preguntasAux = [p._id]
       preguntasAux.push p.pregunta
       preguntasAux.push p.respuesta
+      preguntasAux.push p.felicitacion
+      preguntasAux.push p.respuestaIncorrecta
+      preguntasAux.push p.delayRespuesta or 3
       preguntas.push preguntasAux
 
     if not preguntas or _(preguntas).isEmpty()
-      preguntas = [['','','']]
+      preguntas = [['','','','','','']]
     
-    colWidths = [100, 250, 250]
+    colWidths = [50, 200, 200, 200, 200, 50]
 
     $("#preguntas-table").handsontable
       columnSorting: true
-      colHeaders: ['_id', 'pregunta','respuesta']
+      colHeaders: ['_id', 'pregunta','respuesta', 'felicitacion','respuesta incorrecta','delay respuesta (mins)']
       data: preguntas
       minSpareRows: 1
       colWidths: colWidths
@@ -69,6 +72,10 @@ Template.conjuntoPreguntasEdit.events
               pregunta =
                 pregunta: p[1]
                 respuesta: p[2]
+                felicitacion: p[3]
+                respuestaIncorrecta: p[4]
+                delayRespuesta: Utils.parseNumber p[5]
+
               if p[0]
                 id = p[0]
                 Preguntas.update id, { $set: pregunta }, (err) ->
