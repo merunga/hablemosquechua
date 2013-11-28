@@ -51,7 +51,7 @@ Meteor.startup ->
                           fechaHora: { $gt: fechaDesde.toDate() }
                           palabraId: t.palabraId
                         ).forEach (rc) ->
-                          logger.info 'Respuesta correcta por '+rc
+                          logger.info 'Respuesta correcta por '+rc.userRespuesta
                           users += "@#{rc.userRespuesta} "
 
                         if users
