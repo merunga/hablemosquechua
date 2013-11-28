@@ -10,7 +10,8 @@ Package.on_use(function (api) {
   api.use(['bootstrap','stylus','utils'],'client');
 
   api.add_files([
-    'lib/logger.js'
+    'lib/logger.js',
+    'lib/service.coffee'
   ])
 
   // api.add_files('client/router.coffee', 'client');
@@ -26,5 +27,5 @@ Package.on_use(function (api) {
   ], 'server');
 
   // api.export('HablemosQuechua');
-  // api.export('Tweets');
+  api.export('StreamService');
 });

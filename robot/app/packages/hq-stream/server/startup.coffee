@@ -19,43 +19,16 @@ Meteor.startup ->
             logger.info "Soy #{currUser}, te escucho..."
 
             streams[u._id] = twitter.stream('statuses/filter', { track: currUser })
-            streams[u._id].on 'tweet',  Meteor.bindEnvironment( (tweet)->
-              sname = tweet.user.screen_name
-              logger.info "Mention de @#{sname}: #{tweet.text}"
-              potencialPregunta = tweet.text.replace("#{currUser} ",'')
-              if p = TraduccionesService.looksLikeOne u._id, potencialPregunta
-                logger.info "Pregunta de @#{sname}: #{potencialPregunta}"
-                if t = DiccionariosService.traducir u._id, p.palabra.palabra, p.palabra.placeholder
-                  logger.info "Palabra encontrada: #{p.palabra.palabra}"
-                  tweet = HablemosQuechua.replaceVars p.traduccion.respuesta, t
-                else
-                  logger.info "Palabra NO encontrada: #{p.palabra.palabra}"
-                  tweet = "lo siento, pero la traducción de \"#{p.palabra.palabra}\" todavía no me la "\
-                    + "enseñan... al final de cuentas sólo soy un robot"
-
-                dm = "DM @#{sname} #{tweet}"
-                twitter.post 'statuses/update', { status: dm }, Meteor.bindEnvironment( (err, response) ->
-                  tweet =
-                    traduccionId: p.traduccion._id
-                    fechaHora: new Date
-                    userId: u._id
-                  if t then tweet.palabraId = t._id else tweet.palabra = p.palabra.palabra
-                  unless err
-                    tweet.status = Tweets.STATUS.SUCCESS
-                    tweet.twitterResponse = response
-                    logger.info "Enviando respuesta a traduccion de @#{sname}: #{potencialPregunta}"
-                  else
-                    tweet.status = Tweets.STATUS.ERROR
-                    tweet.twitterError = err
-                    logger.error "Error al enviar respuesta a traduccion de @#{sname}: #{potencialPregunta}"
-                  Tweets._collection.insert tweet
-                , (e) ->
-                  logger.error 'Exception on bindEnvironment status/update'
-                  logger.error e
-                )
+            streams[u._id].on 'tweet',  Meteor.bindEnvironment( ( tweet )->
+              if StreamService.ultimoTweetEsPregunta( u )
+                if StreamService.respuestaCorrecta( u, tweet )
+                  a = 'b'
+              else if traduccion = StreamService.esSolicitudDeTraduccion( u, tweet )
+                tweetRespuesta = StreamService.getRespuesta u, traduccion
+                StreamService.enviarTraduccion twitter, u, tweet.user, tweet.text, tweetRespuesta, traduccion
             , (e) ->
               logger.error 'Exception on bindEnvironment statuses/filter'
-              logger.error e
+              logger.trace e
             )
 
               # if sname isnt accessCredentials.screenName
