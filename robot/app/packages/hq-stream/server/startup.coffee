@@ -25,6 +25,7 @@ Meteor.startup ->
                   a = 'b'
               else if traduccion = StreamService.esSolicitudDeTraduccion( u, tweet )
                 tweetRespuesta = StreamService.getRespuesta u, traduccion
+                console.log u
                 StreamService.enviarTraduccion twitter, u, tweet.user, tweet.text, tweetRespuesta, traduccion
             , (e) ->
               logger.error 'Exception on bindEnvironment statuses/filter'

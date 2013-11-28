@@ -35,6 +35,8 @@ StreamService =
     t = traduccion
     dm = "DM @#{sname} #{tweetRespuesta}"
     twitter.post 'statuses/update', { status: dm }, Meteor.bindEnvironment( (err, response) ->
+      console.log '-------'
+      console.log robotUser._id
       tweet =
         traduccionId: t.traduccion._id
         fechaHora: new Date

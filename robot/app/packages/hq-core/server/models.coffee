@@ -1,6 +1,6 @@
 createdAtAndUserId = (userId, doc) ->
   doc.createdAt = Date.now()
-  doc.userId = userId
+  doc.userId = userId unless doc.userId
 
 Tweets._collection.before.insert createdAtAndUserId
 
