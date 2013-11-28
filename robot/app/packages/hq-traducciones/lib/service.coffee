@@ -14,11 +14,12 @@ TraduccionesService =
         localAux = t.pregunta.replace /".*"/i, ""
         externalAux = tweet.replace /".*"/i, ""
 
-        if localAux is externalAux
+        localAux = new RegExp(localAux,'i')
+        if externalAux.match localAux
           traduccion = t
           palabra =
             palabra: tweet.match( /"(.*)"/i, "" )[1]
-            placeholder: t.pregunta.match( /"(.*)"/i, "" )[1].replace('{','').replace('}','')
+            placeholder: t.pregunta.match( /"(.*)"/i, "" )[1].replace('{','').replace('}','').replace(/\\/g,'')
     
     if traduccion
       return {

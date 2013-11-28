@@ -13,9 +13,9 @@ Package.on_use(function (api) {
     'lib/models.coffee'
   ], ['client','server'])
 
-  api.add_files([
-    'lib/service.coffee'
-  ], 'server')
+  // api.add_files([
+  //   'lib/service.coffee'
+  // ], 'server')
 
   api.add_files([
     'server/models.coffee',
@@ -36,6 +36,6 @@ Package.on_use(function (api) {
     'ConjuntosPreguntas',
     'Preguntas',
     'AggregationConjuntoPreguntas',
-    'PreguntasService'
+//    'PreguntasService'
   ], ['client', 'server'])
 });
