@@ -11,10 +11,20 @@ Deps.autorun ->
     time.local()
     entry =
       title: t.tweet
-    entry.id = t._id
-    entry.allDay = false
-    entry.start = time.toDate()
-    entry.end = time.toDate()
+      id: t._id
+      allDay: false
+      start: time.toDate()
+      end: time.toDate()
+    className = (t) ->
+      if t.status is Tweets.STATUS.SUCCESS
+        return 'tweeted'
+      else if t.status is Tweets.STATUS.ERROR
+        return 'tweet-error'
+      else if t.fechaHora < new Date()
+        return 'tweet-viejo'
+      else
+        return 'tweet-to-be'
+    entry.className = className t
     entries.push entry
 
   defaultView = 'agendaDay'
