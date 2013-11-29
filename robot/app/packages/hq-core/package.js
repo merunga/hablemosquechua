@@ -32,7 +32,8 @@ Package.on_use(function (api) {
     'client/views/programar.html',
     'client/views/programar.coffee',
     'client/views/calendar.html',
-    'client/views/calendar.coffee'
+    'client/views/calendar.coffee',
+    'client/core.styl',
   ], 'client');
   
   api.add_files([

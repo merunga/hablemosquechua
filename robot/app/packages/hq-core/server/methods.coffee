@@ -1,7 +1,7 @@
 utils = HablemosQuechua.Utils
 
 Meteor.methods
-  'calcularTweetCount': (rules) ->
+  calcularTweetCount: (rules) ->
     weeks = utils.weeksBetween rules.desde, rules.hasta
     count = 0
     Schedules.find( { _id: { $in: rules.scheduleIds } } ).forEach (s) ->
@@ -10,7 +10,7 @@ Meteor.methods
           count += weeks[ddls].length * e.horas.length * e.minutos.length
     return count
 
-  'programarTweets': (rules) ->
+  programarTweets: (rules) ->
     palabras = utils.getPalabras rules.scheduleIds
     frases   = utils.getFrases rules.scheduleIds
     preguntas  = utils.getPreguntas rules.scheduleIds
@@ -34,3 +34,9 @@ Meteor.methods
           catch e
             logger.error e
             logger.error Tweets.namedContext("default").invalidKeys()
+
+  flushTweets: ->
+    now = new Date()
+    Tweets.remove
+      userId: Meteor.userId()
+      fechaHora: { $gt: now }

@@ -49,3 +49,13 @@ Deps.autorun ->
 
 Template.calendario.rendered = ->
   Session.set "calendarioTemplateRendered", true
+
+Template.calendario.events
+  'click .flushBtn': (e, tmpl) ->
+    bootbox.confirm 'Se eliminarán todos los tweets no twiteados '+\
+      'a partir de ahora, estás segur@?', (result) ->
+        if result
+          Meteor.call 'flushTweets', (err, result) ->
+            if err
+              alert err
+              logger.error err
