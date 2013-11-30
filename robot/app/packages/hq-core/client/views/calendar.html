@@ -1,6 +1,6 @@
 <template name="calendarioShow">
   {{> calendario}}
-  {{> tweetDetalle}}
+  {{> tweetDetalleModal}}
 </template>
 
 <template name="calendario">
@@ -18,17 +18,38 @@
   </div>
 </template>
 
+<template name="tweetDetalleModal">
+  {{#constant}}
+  <div class="modal hide fade" id="event-details-modal">
+  </div>
+  {{/constant}}
+</template>
+
 <template name="tweetDetalle">
-{{#constant}}
-<div class="modal hide fade" id="event-details-modal">
   <div class="modal-header">
     <button type="button" class="close" data-dismiss="modal">x</button>
     <h3></h3>
   </div>
   <div class="modal-body">
-    <div>
+    <div class="row-fluid">
+      <div class="span12">
+        <strong>Fecha:</strong> {{selectedTweet.fechaHora}}
+      </div>
+    </div>
+    <div class="row-fluid">
+      <div class="span12">
+        <strong>Status:</strong> <span class="{{selectedTweet.className}}">{{selectedTweet.status}}<span>
+      </div>
+    </div>
+    <div class="row-fluid">
+      <div class="span12">
+        <blockquote>
+          {{selectedTweet.tweet}}
+        </blockquote>
+        {{#if selectedTweet.link}}
+          <a href="{{selectedTweet.link}}" target="_blank">Ver en twitter</a>
+        {{/if}}
+      </div>
     </div>
   </div>
-</div>
-{{/constant}}
 </template>

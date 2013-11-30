@@ -15,6 +15,14 @@ Deps.autorun ->
       allDay: false
       start: time.toDate()
       end: time.toDate()
+
+      fechaHora: t.fechaHora
+      status: t.status
+      tweet: t.tweet
+
+    if t.twitterResponse?.id_str
+      entry.link = "http://twitter.com/#{t.twitterResponse.user.screen_name}/status/#{t.twitterResponse?.id_str}"
+
     className = (t) ->
       if t.status is Tweets.STATUS.SUCCESS
         return 'tweeted'
@@ -34,15 +42,25 @@ Deps.autorun ->
     firstDay: 1
     defaultView: Session.get( 'calendarView' ) or defaultView
     header:
-      left: "prev,next today"
+      left: "month,agendaWeek,agendaDay"
       center: "title"
-      right: "month,agendaWeek,agendaDay"
+      right: "prev,next today"
 
     editable: false
     events: entries
 
     eventClick: (calEvent, jsEvent, view) ->
-      return false
+      ce = calEvent
+      tweet =
+        fechaHora: ce.fechaHora
+        status: ce.status
+        tweet: ce.tweet
+        link: ce.link
+        className: ce.className
+
+      $modal = $("#event-details-modal")
+      $modal.html Template.tweetDetalle selectedTweet: tweet
+      $modal.modal 'show'
       
   steps = window.calendarSteps
   if steps and not window.calendarUpdatingSteps
