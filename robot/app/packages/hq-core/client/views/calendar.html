@@ -51,5 +51,12 @@
         {{/if}}
       </div>
     </div>
+    {{#if pending selectedTweet}}
+    <div class="row-fluid">
+      <div class="span12">
+        <button class="btn-eliminar" onclick="eliminarTweet('{{selectedTweet._id}}')">Eliminar tweet</button>
+      </div>
+    </div>
+    {{/if}}
   </div>
 </template>

@@ -10,6 +10,7 @@ Deps.autorun ->
     time = moment t.fechaHora
     time.local()
     entry =
+      tweetId: t._id
       title: t.tweet
       id: t._id
       allDay: false
@@ -52,6 +53,7 @@ Deps.autorun ->
     eventClick: (calEvent, jsEvent, view) ->
       ce = calEvent
       tweet =
+        _id: ce.tweetId
         fechaHora: ce.fechaHora
         status: ce.status
         tweet: ce.tweet
@@ -75,6 +77,11 @@ Deps.autorun ->
   window.calendarSteps = steps
   window.calendarUpdatingSteps = false
 
+Template.tweetDetalle.pending = (tweet) ->
+  if tweet.status is Tweets.STATUS.PENDING
+    return true
+  return false
+
 Template.calendario.rendered = ->
   Session.set "calendarioTemplateRendered", true
 
@@ -87,3 +94,15 @@ Template.calendario.events
             if err
               alert err
               logger.error err
+
+@eliminarTweet = (id) ->
+  tweet = Tweets.findOne id
+  bootbox.confirm "Se eliminará el tweet #{tweet.tweet}", (result) ->
+    if result
+      Tweets.remove id, (err) ->
+        if err
+          alert err
+          logger.error err
+        else
+          $('.modal').modal 'hide'
+    return true
