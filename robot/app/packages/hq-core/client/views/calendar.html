@@ -53,7 +53,8 @@
     {{#if pending selectedTweet}}
     <div class="row-fluid">
       <div class="span12">
-        <button class="btn-eliminar" onclick="eliminarTweet('{{selectedTweet._id}}')">Eliminar tweet</button>
+        <button class="btn btn-danger btn-eliminar pull-right"
+          onclick="eliminarTweet('{{selectedTweet._id}}')">Eliminar tweet</button>
       </div>
     </div>
     {{/if}}
