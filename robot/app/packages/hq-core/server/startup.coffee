@@ -55,12 +55,12 @@ Meteor.startup ->
                           logger.info "Respuesta correcta de #{rc.userRespuesta}"
                           followersCorrectos.push rc.userRespuesta
 
-                        aFelicitar = Followers.find userScreenName: { $in: followersCorrectos }
+                        aFelicitar = Followers.find screenName: { $in: followersCorrectos }
                         , { $sort: { felicitacionesPublicas: 1 }, $limit: 5 }
 
                         aFelicitar.forEach (u) ->
-                          logger.info 'Felicitacion para '+u.userScreenName
-                          usersStr += "@#{u.userScreenName} "
+                          logger.info 'Felicitacion para '+u.screenName
+                          usersStr += "@#{u.screenName} "
                           Followers.update u._id, { $inc: { felicitacionesPublicas: 1 } }
 
                         if usersStr

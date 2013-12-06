@@ -1,0 +1,27 @@
+<template name="followerList">
+  <h2>Followers</h2>
+  {{#if followers}}
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <td class="span2">Twitter</td>
+          <td class="span2">Respuestas correctas</td>
+          <td class="span2">Felicitaciones públicas</td>
+        </tr>
+      </thead>
+      <tbody>
+      {{#each followers}}
+        <tr>
+          <td class="span2">
+            <a href="https://twitter.com/{{screenName}}" target="_blank">{{screenName}}</a>
+          </td>
+          <td class="span2">{{respuestasCorrectas}}</td>
+          <td class="span2">{{felicitacionesPublicas}}</td>
+        </tr>
+      {{/each}}
+      </tbody>
+    </table>
+  {{else}}
+    <h3>No hay followers con interacciones</h3>
+  {{/if}}
+</template>

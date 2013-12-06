@@ -40,7 +40,7 @@ StreamService =
 
       logger.info "Actualizando counting de respuestas correctas de #{userRespuesta}"
       try
-        Followers.update { userScreenName: userRespuesta }, { $inc: { respuestasCorrectas: 1 } }
+        Followers.update { screenName: userRespuesta }, { $inc: { respuestasCorrectas: 1 } }
       catch e
         logger.error 'Followers.update '+e
         logger.error Followers.namedContext('default').invalidKeys()

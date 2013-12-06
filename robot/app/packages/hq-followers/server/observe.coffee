@@ -1,10 +1,10 @@
 createFollower = (mention) ->
-  unless f = Followers.findOne {userScreenName: mention.twitterUser}
+  unless f = Followers.findOne {screenName: mention.twitterUser}
     logger.info "Creando follower #{mention.twitterUser}"
     try
       Followers.insert
         robotId: mention.userId
-        userScreenName: mention.twitterUser
+        screenName: mention.twitterUser
         felicitacionesPublicas: 0
         respuestasCorrectas: 0
     catch e

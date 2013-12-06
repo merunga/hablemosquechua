@@ -1,6 +1,8 @@
 Followers = new Meteor.Collection2 'followers',
   schema:
-    userScreenName:
+    robotId:
+      type: String
+    screenName:
       type: String
       unique: true
     felicitacionesPublicas:
