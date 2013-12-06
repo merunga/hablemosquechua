@@ -43,20 +43,30 @@ Meteor.startup ->
                       pregunta = Preguntas.findOne t.preguntaId
                       if pregunta.felicitacion
                         logger.info 'Buscando usuarios a felicitar'
-                        users = ""
+                        usersStr = ""
                         fechaDesde = moment t.fechaHora
                         fechaDesde.subtract 'minutes', ( pregunta.delayRespuesta or 3 )
 
-                        respuestasCorrectas = RespuestasCorrectas.find(
+                        followersCorrectos = []
+                        RespuestasCorrectas.find(
                           fechaHora: { $gt: fechaDesde.toDate() }
                           palabraId: t.palabraId
                         ).forEach (rc) ->
-                          logger.info 'Respuesta correcta por '+rc.userRespuesta
-                          users += "@#{rc.userRespuesta} "
+                          logger.info "Respuesta correcta de #{rc.userRespuesta}"
+                          followersCorrectos.push rc.userRespuesta
 
-                        if users
-                          felicitacion = pregunta.felicitacion.replace '{users}', users
+                        aFelicitar = Followers.find userScreenName: { $in: followersCorrectos }
+                        , { $sort: { felicitacionesPublicas: 1 }, $limit: 5 }
+
+                        aFelicitar.forEach (u) ->
+                          logger.info 'Felicitacion para '+u.userScreenName
+                          usersStr += "@#{u.userScreenName} "
+                          Followers.update u._id, { $inc: { felicitacionesPublicas: 1 } }
+
+                        if usersStr
+                          felicitacion = pregunta.felicitacion.replace '{users}', usersStr
                           felicitacion = HablemosQuechua.replaceVars felicitacion, palabra
+                          logger.info 'Twitteando felicitacion'
                           twitter.post 'statuses/update', { status: felicitacion }, (err2, response2) ->
                             if err2
                               logger.error err2

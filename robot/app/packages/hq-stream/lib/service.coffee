@@ -19,15 +19,34 @@ StreamService =
     return false
 
   registrarRespuestaCorrecta: ( robotUser, userRespuesta, ultimoTweet, variable ) ->
-    try
-      RespuestasCorrectas.insert
-        userRespuesta: userRespuesta
-        fechaHora: new Date()
-        palabraId: ultimoTweet.palabraId
-        variable: variable
-    catch e
-      logger.error 'RespuestasCorrectas.insert '+e
-      logger.error RespuestasCorrectas.namedContext('default').invalidKeys()
+    yaLaSabe = RespuestasCorrectas.findOne
+      userRespuesta: userRespuesta
+      palabraId: ultimoTweet.palabraId
+      variable: variable
+
+    unless yaLaSabe
+
+      logger.info "Registrando respuesta correcta #{userRespuesta}"
+      try
+        RespuestasCorrectas.insert
+          userRespuesta: userRespuesta
+          fechaHora: new Date()
+          palabraId: ultimoTweet.palabraId
+          variable: variable
+      catch e
+        logger.error 'RespuestasCorrectas.insert '+e
+        logger.error RespuestasCorrectas.namedContext('default').invalidKeys()
+
+
+      logger.info "Actualizando counting de respuestas correctas de #{userRespuesta}"
+      try
+        Followers.update { userScreenName: userRespuesta }, { $inc: { respuestasCorrectas: 1 } }
+      catch e
+        logger.error 'Followers.update '+e
+        logger.error Followers.namedContext('default').invalidKeys()
+
+    else
+      logger.info "#{userRespuesta} ya se la sabe"
 
   esSolicitudDeTraduccion: ( user, tweetRecibido ) ->
     sname = tweetRecibido.user.screen_name

@@ -4,18 +4,17 @@
 </template>
 
 <template name="calendario">
-  <div class="row-fluid">
-    <button class="flushBtn pull-left btn btn-danger btn-large">Flush</button>
-    <button class="flushBtn pull-right btn btn-danger btn-large">Flush</button>
+  <div class="flushBtn-container">
+    <div class="row-fluid">
+      <div class="span12">
+        <button class="flushBtn stuck pull-right btn btn-danger btn-large">Flush</button>
+      </div>
+    </div>
   </div>
   {{#constant}}
     <div id="calendario">
     </div>
   {{/constant}}
-  <div class="row-fluid">
-    <button class="flushBtn pull-left btn btn-danger btn-large">Flush</button>
-    <button class="flushBtn pull-right btn btn-danger btn-large">Flush</button>
-  </div>
 </template>
 
 <template name="tweetDetalleModal">

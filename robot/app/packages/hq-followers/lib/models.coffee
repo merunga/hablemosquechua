@@ -1,3 +1,13 @@
+Followers = new Meteor.Collection2 'followers',
+  schema:
+    userScreenName:
+      type: String
+      unique: true
+    felicitacionesPublicas:
+      type: Number
+    respuestasCorrectas:
+      type: Number
+
 Mentions = new Meteor.Collection2 'mentions',
   schema:
     userId:

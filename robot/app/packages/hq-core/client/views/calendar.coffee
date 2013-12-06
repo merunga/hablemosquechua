@@ -1,7 +1,21 @@
 Meteor.startup ->
   Session.set "calendarioTemplateRendered", false
 
-Deps.autorun ->
+onEventClick = (calEvent, jsEvent, view) ->
+  ce = calEvent
+  tweet =
+    _id: ce.tweetId
+    fechaHora: ce.fechaHora
+    status: ce.status
+    tweet: ce.tweet
+    link: ce.link
+    className: ce.className
+
+  $modal = $("#event-details-modal")
+  $modal.html Template.tweetDetalle selectedTweet: tweet
+  $modal.modal 'show'
+
+fullcalendarRender = ->
   return if Session.equals("calendarioTemplateRendered", false) \
     or not Subscriptions['tweets']?.ready()
 
@@ -50,20 +64,8 @@ Deps.autorun ->
     editable: false
     events: entries
 
-    eventClick: (calEvent, jsEvent, view) ->
-      ce = calEvent
-      tweet =
-        _id: ce.tweetId
-        fechaHora: ce.fechaHora
-        status: ce.status
-        tweet: ce.tweet
-        link: ce.link
-        className: ce.className
+    eventClick: onEventClick
 
-      $modal = $("#event-details-modal")
-      $modal.html Template.tweetDetalle selectedTweet: tweet
-      $modal.modal 'show'
-      
   steps = window.calendarSteps
   if steps and not window.calendarUpdatingSteps
     if steps < 0
@@ -76,6 +78,15 @@ Deps.autorun ->
       $calendario.fullCalendar(dir)
   window.calendarSteps = steps
   window.calendarUpdatingSteps = false
+
+  stickies = [
+    '.flushBtn','.fc-header',
+    #'.fc-content thead'
+  ]
+  _.each stickies, (it) ->
+    $(it).waypoint 'sticky'
+
+Deps.autorun fullcalendarRender
 
 Template.tweetDetalle.pending = (tweet) ->
   if tweet.status is Tweets.STATUS.PENDING

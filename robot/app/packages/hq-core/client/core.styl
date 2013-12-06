@@ -1,5 +1,26 @@
+stuck(top)
+  top top
+  z-index 100
+
+.stuck
+  margin-right 15px
+
 .flushBtn
-  margin 8px 15px
+  background-color white
+  atTheTop = 40px 
+  atRight = 290px
+  top atTheTop
+  right atRight
+  stuck( atTheTop )
+
+.fc-header.stuck
+  stuck( 80px )
+  background-color white
+  margin-right auto
+  margin-left auto
+
+.fc-content thead.stuck
+  stuck( 120px )
 
 .fc-event
   &:hover

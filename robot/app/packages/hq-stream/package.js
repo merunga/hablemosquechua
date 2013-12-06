@@ -11,24 +11,12 @@ Package.on_use(function (api) {
 
   api.add_files([
     'lib/logger.js',
-    'lib/models.coffee',
     'lib/service.coffee'
   ])
-
-  // api.add_files('client/router.coffee', 'client');
-  // api.add_files([
-  //   'client/views/programar.html',
-  //   'client/views/programar.coffee',
-  //   'client/views/calendar.html',
-  //   'client/views/calendar.coffee'
-  // ], 'client');
   
   api.add_files([
-    'server/startup.coffee',
-    'server/models.coffee'
+    'server/startup.coffee'
   ], 'server');
 
-  // api.export('HablemosQuechua');
   api.export('StreamService');
-  api.export('Mentions');
 });
