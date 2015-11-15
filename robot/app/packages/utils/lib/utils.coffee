@@ -1,5 +1,5 @@
 Meteor.startup ->
-  moment.lang 'es'
+  moment().lang 'es'
 
 Utils =
   round: (num, decimals=2) ->
