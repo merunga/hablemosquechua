@@ -7,6 +7,10 @@
       "git": "https://github.com/aldeed/meteor-collection2.git",
       "tag": "v0.2.17"
     },
+    "simple-schema": {
+      "git": "https://github.com/aldeed/meteor-simple-schema.git",
+      "tag": "v0.2.25"
+    },
     "roles": {},
     "collection-hooks": {},
     "bootboxjs": {

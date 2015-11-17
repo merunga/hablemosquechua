@@ -13,7 +13,7 @@ Meteor.methods
   programarTweets: (rules) ->
     palabras = utils.getPalabras rules.scheduleIds
     frases   = utils.getFrases rules.scheduleIds
-    preguntas  = utils.getPreguntas rules.scheduleIds
+    preguntas  = utils.getPreguntas(rules.scheduleIds) || []
     horarios = utils.getHorarios rules
     plantillas = _(frases)?.union preguntas
 

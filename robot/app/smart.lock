@@ -9,6 +9,10 @@
         "git": "https://github.com/aldeed/meteor-collection2.git",
         "tag": "v0.2.17"
       },
+      "simple-schema": {
+        "git": "https://github.com/aldeed/meteor-simple-schema.git",
+        "tag": "v0.2.25"
+      },
       "roles": {},
       "collection-hooks": {},
       "bootboxjs": {
@@ -29,6 +33,11 @@
         "git": "https://github.com/aldeed/meteor-collection2.git",
         "tag": "v0.2.17",
         "commit": "186cc58040764b816392e19178ba373bda7a91c6"
+      },
+      "simple-schema": {
+        "git": "https://github.com/aldeed/meteor-simple-schema.git",
+        "tag": "v0.2.25",
+        "commit": "277917a78e8a86123a2d99ec0f9d4bb14b7815f5"
       },
       "roles": {
         "git": "https://github.com/alanning/meteor-roles.git",
@@ -59,11 +68,6 @@
         "git": "https://github.com/mad-eye/pince.git",
         "tag": "v0.0.5",
         "commit": "4524ecc0bdf043c49dc62e91bbd8a99c661081ed"
-      },
-      "simple-schema": {
-        "git": "https://github.com/aldeed/meteor-simple-schema.git",
-        "tag": "v1.0.2",
-        "commit": "21a4ce06ae29bff2fb1203c44ea24e61f1c3edba"
       }
     }
   }
