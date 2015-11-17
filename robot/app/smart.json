@@ -9,10 +9,12 @@
     },
     "roles": {},
     "collection-hooks": {},
-    "bootboxjs": {},
+    "bootboxjs": {
+      "git": "https://github.com/TimHeckel/meteor-bootboxjs.git",
+      "tag": "v3.2.0.1"
+    },
     "cron-tick": {},
     "underscore-string-latest": {},
     "pince": {}
   }
 }
-
